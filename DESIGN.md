@@ -1,5 +1,5 @@
 ---
-name: Gubbi Objects
+name: gubbi gang
 description: The Art Club visual language, adapted for a collection preview.
 colors:
   paper: "#f8f5ea"
@@ -92,7 +92,7 @@ components:
     rounded: "{rounded.xl}"
     padding: "9px 17px"
 ---
-# Design System: Gubbi Objects
+# Design System: gubbi gang
 
 ## Overview
 
@@ -101,6 +101,10 @@ components:
 Warm, local and lightly mischievous: generous paper grounds, confident type, tactile images and practical shopping controls. Concept imagery and illustrative prices remain visibly identified; the frontend takes no live orders or payments.
 
 **Key characteristics:** English wordmark and flower; paper and cobalt; coral, yellow and sage accents; tilted prints; italic asides; clear commerce controls.
+
+## Voice
+
+Bengaluru Kanglish, in Latin script only: `swalpa adjust maadi`, `meter haaki`, `eshtu doddadu`, `chikka`/`dodda`, `sikkapatte`, `gombe`. Headlines lead with the local phrase and the supporting line carries the plain-English meaning, so a non-Kannada reader is never locked out. The register is affectionate and self-deprecating about work, traffic and screen time — never mocking the city. Kanglish lives in copy; it never becomes a Kannada-script wordmark or a Baloo lockup.
 
 ## Colors
 
@@ -130,9 +134,10 @@ Small control corners are 6px, product images 8px and gift panels 12px. Filters 
 
 ## Components
 
-- **Identity and navigation:** English lowercase `gubbi`, flower, and small tracked `OBJECTS`. Desktop brand is 42px, mobile 36px; footer uses the same identity in paper on cobalt. Main navigation is understated with active underlines; the bag is a cobalt action with a circular count.
+- **Identity and navigation:** English lowercase `gubbi`, flower, and small tracked `GANG`. Desktop brand is 42px, mobile 36px; footer uses the same identity in paper on cobalt. Main navigation is understated with active underlines; the bag is a cobalt action with a circular count.
 - **Buttons:** cobalt/cream, 13px DM, 50px minimum height, 15px 23px padding, 6px corners. Hover darkens and moves up 3px with a -1deg rotation. Light variants use paper/cobalt. Preserve visible keyboard focus: 3px outlines with 5px offset; buttons, links and summaries use cobalt, fields use coral.
 - **Filters and personality selectors:** outlined pills, minimum 44px height, ink/paper active state. Preserve active semantics and clear hover borders.
+- **Home sections:** the `which one are you` flow is a single cream card (740px, 12px corners, `--shadow-md`) that swaps a 3-step question state for a result state; the reveal is the page's one authored motion moment (rise, fade and de-blur on `--ease-out-expo`). The craft sequence is four numbered steps on a dashed sage rule with cobalt nodes — numbered because the sequence is real. The scale diagram uses CSS drafting marks around a deliberately modest print. The group chat is tinted bubbles with name labels and no fabricated customer voices.
 - **Product cards:** image first, open text below, 24px Space title, 13px illustrative price and compact description. Cobalt circular quick-add remains visibly actionable. Keep concept-image labels.
 - **Fields:** cream checkout inputs with line-strong borders, 2px corners and 12px padding. Search uses a quieter underlined field. Keep labels and native validation readable.
 - **Photos and signatures:** taped hero print at -5deg, yellow circular stamp, cobalt flower, curved arrow and hand underline. Reuse these Art Club motifs with restraint and retain image subject visibility.
@@ -141,9 +146,11 @@ Small control corners are 6px, product images 8px and gift panels 12px. Filters 
 ## Do's and Don'ts
 
 - **Do** copy the parent Art Club’s established visual language and adapt content for shopping.
+- **Do** write in Bengaluru Kanglish, Latin script only, with the plain meaning close by.
 - **Do** use the English gubbi lettering plus flower in header, footer, empty states and favicon.
 - **Do** preserve the supplied six product concepts, concept-image disclosures and illustrative-price labels.
 - **Do** keep focus, reduced motion, mobile layouts and shopping controls usable.
 - **Don't** create an independent editorial identity or substitute a hybrid/Kannada wordmark.
 - **Don't** use bird icons anywhere on this website. Supplied product concept artwork stays intact.
+- **Don't** put a label or eyebrow above a heading; the heading carries its own weight.
 - **Don't** imply real orders, stock, production guarantees or fulfilled nest-box impact from this frontend preview.

@@ -1,10 +1,12 @@
-# The Gubbi objects storefront
+# The gubbi gang storefront
 
-Standalone Astro frontend in this folder. Sister site to Gubbi Art Club; never modify the parent Art Club site as part of Objects work.
+Standalone Astro frontend in this folder. Sister site to Gubbi Art Club; never modify the parent Art Club site as part of this work.
 
 ## Owner's direction
 
 The owner explicitly rejected a separate editorial visual identity on 16 September 2026. Copy the Art Club site's existing visual language directly: its English gubbi lettering, flower, paper, cobalt, coral, yellow, sage, type scale, taped photographs, and playful section composition. Adapt content and navigation for shopping.
+
+On 16 September 2026 the owner also rejected the word "objects" as too mechanical and named the line **gubbi gang**: lowercase `gubbi` plus small tracked `GANG`, product routes at `/gang/<slug>`. The voice is Bengaluru Kanglish in Latin script — the owner chose this over polite English, because describing the city read flatter than speaking like it.
 
 Never use the Kannada/hybrid wordmark or bird icons on this website, including the header, footer, empty states, and favicon. The original six product concepts themselves are supplied imagery and remain intact.
 

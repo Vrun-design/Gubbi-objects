@@ -24,7 +24,8 @@
    ============================================================ */
 
 /* 1. Fonts ---------------------------------------------------- */
-@font-face{font-family:DM;src:url('/fonts/body.ttf') format('truetype');font-display:swap}
+@font-face{font-family:DM;src:url('/fonts/body.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:DM;src:url('/fonts/body-bold.ttf') format('truetype');font-weight:700;font-display:swap}
 @font-face{font-family:Space;src:url('/fonts/display.ttf') format('truetype');font-weight:700;font-display:swap}
 @font-face{font-family:Baloo;src:url('/fonts/kannada.ttf') format('truetype');font-display:swap}
 
@@ -99,7 +100,8 @@
   --color-danger:var(--danger);
 
   /* 4. Type ---------------------------------------------------- */
-  --font-display:Space,Arial,sans-serif;
+  --font-display:DM,Arial,sans-serif;
+  --font-wordmark:Space,Arial,sans-serif;   /* the gubbi lettering only */
   --font-body:DM,Arial,sans-serif;
   --font-serif:Georgia,serif;                        /* editorial italic flourish only */
   --font-kannada:Baloo,'Noto Sans Kannada',sans-serif;
@@ -107,7 +109,7 @@
   --text-body:15px;
   --leading-body:1.6;
   --leading-display:1.08;
-  --tracking-display:-.04em;   /* every Space headline */
+  --tracking-display:-.04em;   /* every display headline */
   --tracking-display-loose:-.03em;
   --tracking-caps:.1em;        /* small uppercase labels, eyebrows */
   --tracking-caps-wide:.14em;
@@ -159,3 +161,7 @@
 ::selection{background:var(--yellow);color:var(--ink)}
 :focus-visible{outline:3px solid var(--orange);outline-offset:5px}
 input,textarea{caret-color:var(--blue)}
+::-webkit-scrollbar{width:13px;height:13px}
+::-webkit-scrollbar-track{background:var(--paper)}
+::-webkit-scrollbar-thumb{background:var(--blue);border:3px solid var(--paper);border-radius:var(--radius-pill)}
+::-webkit-scrollbar-thumb:hover{background:var(--blue-deep)}

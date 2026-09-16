@@ -2,10 +2,18 @@
 import { type Product, money } from '../data/products';
 import ProductCrop from './ProductCrop.astro';
 import Icon from './Icon.astro';
-interface Props { product: Product; featured?: boolean; }
+interface Props { product: Product; }
 const { product } = Astro.props;
 ---
 <article class="product-card">
-  <div class="product-card__visual"><a class="product-card__image" href={`/objects/${product.slug}`} aria-label={`Explore ${product.name}`}><ProductCrop position={product.position} alt={`${product.name}, wooden object concept`} /><span class="product-card__peek">Meet your new desk mate <Icon /></span></a><span class="object-id">G / {product.number}</span><button class="quick-add" data-add={product.slug} aria-label={`Add ${product.name} to bag`}><Icon name="plus" /></button></div>
-  <div class="product-card__copy"><div class="product-card__title"><h3><a href={`/objects/${product.slug}`}>{product.name}</a></h3><span class="price">{money(product.price)}</span></div><p>{product.short}</p><span class="product-tag">{product.tags[0]}</span></div>
+  <div class="product-card__visual">
+    <a class="product-card__image" href={`/gang/${product.slug}`} aria-label={`Meet ${product.name}`}>
+      <ProductCrop position={product.position} alt={`${product.name}, wooden object concept`} />
+    </a>
+    <button class="quick-add" data-add={product.slug} aria-label={`Add ${product.name} to bag`}><Icon name="plus" /></button>
+  </div>
+  <div class="product-card__copy">
+    <div class="product-card__title"><h3><a href={`/gang/${product.slug}`}>{product.name}</a></h3><span class="price">{money(product.price)}</span></div>
+    <p class="product-card__mood">{product.mood.replace(/^For /, 'for ')}</p>
+  </div>
 </article>

@@ -14,8 +14,16 @@ try {
  await page.screenshot({ path: out + 'desktop.png', fullPage: true });
  await page.screenshot({ path: out + 'desktop-hero.png' });
  assert.equal(await page.locator('img[src*="sparrow"], img[src*="wordmark"], [lang="kn"]').count(), 0);
- await page.getByRole('button', { name: 'One more scroll', exact: true }).click();
- assert.equal(await page.locator('[data-mood-name]').textContent(), 'Doomscroll Buddy');
+ await page.getByRole('button', { name: 'One more reel. Just one.', exact: true }).click();
+ await page.getByRole('button', { name: 'Silk Board is a state of mind.', exact: true }).click();
+ await page.getByRole('button', { name: 'The group chat.', exact: true }).click();
+ assert.equal(await page.locator('[data-quiz-name]').textContent(), 'Doomscroll Buddy');
+ assert.equal(await page.locator('[data-quiz-add]').getAttribute('data-add'), 'doomscroll-buddy');
+ await page.screenshot({ path: out + 'quiz-result.png' });
+ await page.getByRole('button', { name: 'Wrong. Ask me again.', exact: true }).click();
+ assert.equal(await page.locator('[data-quiz-result]').isVisible(), false);
+ assert.equal(await page.locator('[data-quiz-step]').textContent(), '1');
+ assert.equal(await page.locator('body').innerText().then(text => /\bobjects\b/i.test(text)), false);
  await page.goto(base + '/shop');
  await page.getByRole('button', { name: 'Tech worker', exact: true }).click();
  assert.equal(await page.locator('[data-product-tags]:visible').count(), 2);
@@ -26,7 +34,7 @@ try {
  await page.locator('#product-sort').selectOption('low');
  assert.match(await page.locator('#shop-grid>div').first().innerText(), /Doomscroll Buddy/);
  await page.screenshot({ path: out + 'shop-desktop.png', fullPage: true });
- await page.goto(base + '/objects/traffic-kumar');
+ await page.goto(base + '/gang/traffic-kumar');
  await page.getByRole('button', { name: 'A closer look', exact: true }).click();
  assert.equal(await page.locator('[data-gallery] .product-crop--detail').count(), 1);
  await page.getByRole('button', { name: 'The object', exact: true }).click();
@@ -56,7 +64,7 @@ try {
  await page.evaluate(() => localStorage.setItem('the-gubbi-bag-v1', 'broken JSON'));
  await page.reload();
  assert.equal(await page.locator('#checkout-empty').isVisible(), true);
- const routes = ['/', '/shop', '/objects/traffic-kumar', '/objects/doomscroll-buddy', '/objects/silk-board-forever-loop', '/objects/workflow-spinner-2am', '/objects/copilot-confusion', '/objects/namma-metro-sprint', '/story', '/philosophy', '/faq', '/checkout'];
+ const routes = ['/', '/shop', '/gang/traffic-kumar', '/gang/doomscroll-buddy', '/gang/silk-board-forever-loop', '/gang/workflow-spinner-2am', '/gang/copilot-confusion', '/gang/namma-metro-sprint', '/story', '/philosophy', '/faq', '/checkout'];
  for (const width of [1440, 768, 390, 360]) {
   await page.setViewportSize({ width, height: 900 });
   for (const route of routes) {
@@ -67,7 +75,7 @@ try {
    assert.equal(overflow, false, `Overflow: ${route} at ${width}px`);
    assert.equal(await page.locator('img[src*="sparrow"], img[src*="wordmark"], [lang="kn"]').count(), 0, route);
    if (width === 390 && route === '/') { await page.screenshot({ path: out + 'mobile.png', fullPage: true }); await page.screenshot({ path: out + 'mobile-hero.png' }); }
-   if (width === 390 && route === '/objects/traffic-kumar') await page.screenshot({ path: out + 'pdp-mobile.png', fullPage: true });
+   if (width === 390 && route === '/gang/traffic-kumar') await page.screenshot({ path: out + 'pdp-mobile.png', fullPage: true });
   }
  }
  await page.goto(base);
@@ -81,5 +89,5 @@ try {
  await page.locator('[data-remove]').click();
  assert.equal(await page.locator('#bag-empty').isVisible(), true);
  assert.deepEqual(errors, []);
- console.log('PASS: all routes at 1440/768/390/360px; branding, personality picker, search, filters, sorting, gallery, bag, quantities, persistence, corrupt storage, checkout, and mobile navigation.');
+ console.log('PASS: all routes at 1440/768/390/360px; branding, the which-one-are-you flow, search, filters, sorting, gallery, bag, quantities, persistence, corrupt storage, checkout, and mobile navigation.');
 } finally { await browser.close(); }
