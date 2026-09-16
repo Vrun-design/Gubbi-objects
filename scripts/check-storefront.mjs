@@ -1,0 +1,85 @@
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+import { mkdir } from 'node:fs/promises';
+const base = process.env.OBJECTS_URL || 'http://127.0.0.1:4321';
+const out = new URL('../.impeccable/review/', import.meta.url).pathname;
+await mkdir(out, { recursive: true });
+const browser = await chromium.launch({ headless: true });
+const errors = [];
+try {
+ const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
+ page.on('pageerror', error => errors.push(error.message));
+ await page.goto(base);
+ await page.evaluate(() => document.fonts.ready);
+ await page.screenshot({ path: out + 'desktop.png', fullPage: true });
+ await page.screenshot({ path: out + 'desktop-hero.png' });
+ assert.equal(await page.locator('img[src*="sparrow"], img[src*="wordmark"], [lang="kn"]').count(), 0);
+ await page.getByRole('button', { name: 'One more scroll', exact: true }).click();
+ assert.equal(await page.locator('[data-mood-name]').textContent(), 'Doomscroll Buddy');
+ await page.goto(base + '/shop');
+ await page.getByRole('button', { name: 'Tech worker', exact: true }).click();
+ assert.equal(await page.locator('[data-product-tags]:visible').count(), 2);
+ await page.locator('#product-search').fill('not-in-the-collection');
+ assert.equal(await page.locator('#search-empty').isVisible(), true);
+ await page.getByRole('button', { name: 'Show all objects' }).click();
+ assert.equal(await page.locator('[data-product-tags]:visible').count(), 6);
+ await page.locator('#product-sort').selectOption('low');
+ assert.match(await page.locator('#shop-grid>div').first().innerText(), /Doomscroll Buddy/);
+ await page.screenshot({ path: out + 'shop-desktop.png', fullPage: true });
+ await page.goto(base + '/objects/traffic-kumar');
+ await page.getByRole('button', { name: 'A closer look', exact: true }).click();
+ assert.equal(await page.locator('[data-gallery] .product-crop--detail').count(), 1);
+ await page.getByRole('button', { name: 'The object', exact: true }).click();
+ await page.screenshot({ path: out + 'pdp-desktop.png', fullPage: true });
+ await page.getByRole('button', { name: 'Increase quantity', exact: true }).click();
+ await page.getByRole('button', { name: 'Add to bag', exact: true }).click();
+ assert.equal(await page.locator('#bag').evaluate(node => node.open), true);
+ assert.equal(await page.locator('[data-bag-count]').textContent(), '2');
+ assert.match(await page.locator('[data-bag-total]').textContent(), /2,980/);
+ await page.getByRole('button', { name: 'Increase Traffic Kumar quantity' }).click();
+ assert.equal(await page.locator('[data-bag-count]').textContent(), '3');
+ await page.keyboard.press('Escape');
+ await page.reload();
+ assert.equal(await page.locator('[data-bag-count]').textContent(), '3');
+ await page.goto(base + '/checkout');
+ await page.locator('[name="firstName"]').fill('Preview');
+ await page.locator('[name="lastName"]').fill('Person');
+ await page.locator('[name="email"]').fill('preview@example.com');
+ await page.locator('[name="address"]').fill('Demo address');
+ await page.locator('[name="city"]').fill('Bengaluru');
+ await page.locator('[name="postalCode"]').fill('560001');
+ await page.locator('#gift-toggle').check();
+ await page.locator('[name="giftNote"]').fill('Only a preview.');
+ await page.getByRole('button', { name: 'Finish the preview' }).click();
+ assert.equal(await page.locator('#checkout-success').isVisible(), true);
+ assert.equal(await page.locator('[name="email"]').inputValue(), '');
+ await page.evaluate(() => localStorage.setItem('the-gubbi-bag-v1', 'broken JSON'));
+ await page.reload();
+ assert.equal(await page.locator('#checkout-empty').isVisible(), true);
+ const routes = ['/', '/shop', '/objects/traffic-kumar', '/objects/doomscroll-buddy', '/objects/silk-board-forever-loop', '/objects/workflow-spinner-2am', '/objects/copilot-confusion', '/objects/namma-metro-sprint', '/story', '/philosophy', '/faq', '/checkout'];
+ for (const width of [1440, 768, 390, 360]) {
+  await page.setViewportSize({ width, height: 900 });
+  for (const route of routes) {
+   const response = await page.goto(base + route);
+   assert.equal(response.status(), 200, route);
+   await page.evaluate(() => document.fonts.ready);
+   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1);
+   assert.equal(overflow, false, `Overflow: ${route} at ${width}px`);
+   assert.equal(await page.locator('img[src*="sparrow"], img[src*="wordmark"], [lang="kn"]').count(), 0, route);
+   if (width === 390 && route === '/') { await page.screenshot({ path: out + 'mobile.png', fullPage: true }); await page.screenshot({ path: out + 'mobile-hero.png' }); }
+   if (width === 390 && route === '/objects/traffic-kumar') await page.screenshot({ path: out + 'pdp-mobile.png', fullPage: true });
+  }
+ }
+ await page.goto(base);
+ await page.getByRole('button', { name: 'Open navigation' }).click();
+ assert.equal(await page.locator('#mobile-nav').isVisible(), true);
+ await page.keyboard.press('Escape');
+ assert.equal(await page.locator('#mobile-nav').isVisible(), false);
+ await page.goto(base + '/shop');
+ await page.locator('[data-add]').first().click();
+ await page.locator('[data-open-bag]').click();
+ await page.locator('[data-remove]').click();
+ assert.equal(await page.locator('#bag-empty').isVisible(), true);
+ assert.deepEqual(errors, []);
+ console.log('PASS: all routes at 1440/768/390/360px; branding, personality picker, search, filters, sorting, gallery, bag, quantities, persistence, corrupt storage, checkout, and mobile navigation.');
+} finally { await browser.close(); }

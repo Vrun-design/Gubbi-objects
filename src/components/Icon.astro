@@ -1,0 +1,6 @@
+---
+interface Props { name?: 'arrow' | 'bag' | 'search' | 'close' | 'plus' | 'minus' | 'menu'; }
+const { name = 'arrow' } = Astro.props;
+const paths = { arrow: 'M4 12h16M13 5l7 7-7 7', bag: 'M5 7h14l1 14H4L5 7ZM9 8V6a3 3 0 0 1 6 0v2', search: 'm16 16 5 5M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0', close: 'm5 5 14 14M5 19 19 5', plus: 'M12 5v14M5 12h14', minus: 'M5 12h14', menu: 'M4 7h16M4 17h16' };
+---
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={paths[name]} /></svg>

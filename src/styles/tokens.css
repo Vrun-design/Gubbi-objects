@@ -1,0 +1,161 @@
+/* ============================================================
+   GUBBI — design tokens
+   ------------------------------------------------------------
+   The portable brand layer. This file, /public/fonts and
+   /public/brand (logos) are everything a sister site needs to
+   look like a Gubbi site. Nothing in here knows about pages or
+   components; it only names decisions.
+
+   Layers, top to bottom:
+     1. Fonts          the three self-hosted faces
+     2. Palette        raw colours, named by hue (what it IS)
+     3. Roles          semantic aliases (what it's FOR) — sites
+                       and components should prefer these
+     4. Type           families, tracking, leading, display scale
+     5. Space          rhythm, wrap, radius
+     6. Depth          shadow tint and three shadow levels
+     7. Motion         durations and easings
+     8. Signature      selection, focus ring, caret — the few
+                       element-level rules that ARE the brand
+
+   To rebrand a sister site with the same voice but a different
+   accent, change layer 2 only. Layer 3 and everything built on
+   it follows.
+   ============================================================ */
+
+/* 1. Fonts ---------------------------------------------------- */
+@font-face{font-family:DM;src:url('/fonts/body.ttf') format('truetype');font-display:swap}
+@font-face{font-family:Space;src:url('/fonts/display.ttf') format('truetype');font-weight:700;font-display:swap}
+@font-face{font-family:Baloo;src:url('/fonts/kannada.ttf') format('truetype');font-display:swap}
+
+:root{
+  /* 2. Palette ------------------------------------------------ */
+  /* Ground */
+  --paper:#f8f5ea;        /* the page. warm, slightly yellow off-white */
+  --paper-deep:#eeeadd;   /* a shade under paper: quiet section bands, media wells */
+  --paper-shade:#e7e8da;  /* cooler still: pills, code, small chips */
+  --cream:#fffdf7;        /* raised surfaces on paper: cards, prints, inputs */
+  --line:#d7d7ca;         /* hairlines on paper */
+  --line-strong:#abad9e;  /* form controls, anything that must read as a border */
+
+  /* Ink */
+  --ink:#252720;          /* text, near-black with a green cast */
+  --ink-soft:#4b4c43;     /* long-form body copy on tinted grounds */
+  --ink-muted:#55584d;    /* secondary copy, captions, meta */
+  --ink-faint:#8d8e82;    /* disabled, tertiary */
+
+  /* Cobalt — action */
+  --blue:#2449d8;
+  --blue-deep:#1632ab;    /* hover/pressed */
+  --blue-tint:#dcdcf1;    /* lilac: soft blue ground */
+  --blue-pale:#d9e0ff;    /* text on cobalt that should not be pure white */
+
+  /* Coral — accent */
+  --orange:#ef643f;
+  --orange-tint:#fbd5c5;
+  --orange-pale:#efd9cf;  /* warm ground for artwork/media */
+
+  /* Mustard — highlight */
+  --yellow:#f4ce4f;
+  --yellow-soft:#f3d578;  /* large mustard grounds (softer than the swatch) */
+  --yellow-deep:#edce64;  /* invitation / enquiry panels */
+  --yellow-tint:#fbf0c6;
+  --yellow-line:#dfb944;  /* rules on mustard */
+  --yellow-ink:#7a5a05;   /* small text on mustard */
+
+  /* Botanical green — calm */
+  --green:#e8eddc;        /* sage ground: philosophy, dialogs, hover rows */
+  --green-pale:#f1f4e8;
+  --green-soft:#dfe5d3;   /* dot grids, very faint texture */
+  --green-leaf:#cfe0b7;   /* the brand-manual leaf */
+  --green-line:#9ba88e;   /* dashed rules, dividers on green */
+  --green-line-soft:#c5c8ad;
+
+  /* Craft materials */
+  --tape:#e5c898;         /* washi tape strips — used at ~.6–.75 alpha */
+
+  /* Status */
+  --danger:#a62e22;       /* form errors. reads as ink, not as coral */
+
+  /* On dark grounds (cobalt/ink): white at alpha */
+  --line-on-dark:rgb(255 255 255/.5);
+  --line-on-dark-soft:rgb(255 255 255/.25);
+  --scrim:rgb(23 27 52/.66);   /* dialog backdrop */
+
+  /* 3. Roles --------------------------------------------------- */
+  --color-bg:var(--paper);
+  --color-surface:var(--cream);
+  --color-surface-muted:var(--paper-deep);
+  --color-text:var(--ink);
+  --color-text-muted:var(--ink-muted);
+  --color-border:var(--line);
+  --color-border-strong:var(--line-strong);
+  --color-action:var(--blue);
+  --color-action-hover:var(--blue-deep);
+  --color-on-action:#fff;
+  --color-accent:var(--orange);
+  --color-highlight:var(--yellow);
+  --color-calm:var(--green);
+  --color-danger:var(--danger);
+
+  /* 4. Type ---------------------------------------------------- */
+  --font-display:Space,Arial,sans-serif;
+  --font-body:DM,Arial,sans-serif;
+  --font-serif:Georgia,serif;                        /* editorial italic flourish only */
+  --font-kannada:Baloo,'Noto Sans Kannada',sans-serif;
+
+  --text-body:15px;
+  --leading-body:1.6;
+  --leading-display:1.08;
+  --tracking-display:-.04em;   /* every Space headline */
+  --tracking-display-loose:-.03em;
+  --tracking-caps:.1em;        /* small uppercase labels, eyebrows */
+  --tracking-caps-wide:.14em;
+
+  /* Display scale — fluid. Pick a step, don't invent a clamp. */
+  --text-display-xl:clamp(52px,5.55vw,79px);   /* home hero */
+  --text-display-lg:clamp(40px,5vw,68px);      /* page heroes */
+  --text-display-md:clamp(32px,3.3vw,47px);    /* h2 */
+  --text-display-sm:clamp(26px,3vw,36px);      /* h3 in sections */
+  --text-display-xs:clamp(24px,2.4vw,32px);
+
+  /* 5. Space --------------------------------------------------- */
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:24px;
+  --space-6:32px;
+  --space-7:48px;
+  --space-8:64px;
+  --space-section:90px;        /* vertical rhythm between sections */
+  --wrap-max:1280px;
+  --wrap:min(var(--wrap-max),90%);
+  --header-offset:90px;        /* sticky header height, for scroll-padding */
+
+  --radius-xs:4px;
+  --radius-sm:6px;
+  --radius-md:8px;
+  --radius-lg:12px;
+  --radius-xl:30px;
+  --radius-pill:999px;
+
+  /* 6. Depth --------------------------------------------------- */
+  --shadow-tint:52 50 32;      /* ink-brown; use as rgb(var(--shadow-tint)/.1) */
+  --shadow-sm:0 4px 14px rgb(var(--shadow-tint)/.09);
+  --shadow-md:0 12px 28px rgb(var(--shadow-tint)/.09);
+  --shadow-lg:0 22px 40px rgb(var(--shadow-tint)/.15);
+  --shadow-edge:0 1px 0 var(--line);   /* append to md/lg for a crisp bottom edge */
+
+  /* 7. Motion -------------------------------------------------- */
+  --dur-fast:.2s;
+  --dur:.3s;
+  --dur-slow:.4s;
+  --ease-out-expo:cubic-bezier(.16,1,.3,1);   /* reveals, dialogs */
+  --ease-soft:cubic-bezier(.2,.7,.2,1);
+}
+
+/* 8. Signature ------------------------------------------------- */
+::selection{background:var(--yellow);color:var(--ink)}
+:focus-visible{outline:3px solid var(--orange);outline-offset:5px}
+input,textarea{caret-color:var(--blue)}

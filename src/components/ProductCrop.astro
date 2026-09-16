@@ -1,0 +1,5 @@
+---
+interface Props { position: string; alt: string; eager?: boolean; detail?: boolean; }
+const { position, alt, eager = false, detail = false } = Astro.props;
+---
+<div class:list={['product-crop', position, detail && 'product-crop--detail']}><img src="/Toy.png" alt={alt} width="1536" height="1024" loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : 'auto'} /></div>

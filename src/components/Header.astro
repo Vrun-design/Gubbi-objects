@@ -1,0 +1,12 @@
+---
+import Icon from './Icon.astro';
+import Flower from './Flower.astro';
+const path = Astro.url.pathname;
+---
+<a class="announcement" href="/shop">A little less ordinary. A little more you. <span>Meet the first collection</span><Icon/></a>
+<header class="site-header wrap">
+  <a class="brand" href="/" aria-label="Gubbi home"><Flower class="brand-flower"/><span>gubbi<span class="brand-small">OBJECTS</span></span></a>
+  <nav class="desktop-nav" aria-label="Main navigation"><a href="/shop" aria-current={path.includes('/shop') || path.includes('/objects/') ? 'page' : undefined}>Shop objects</a><a href="/shop?category=Bengaluru">A little Bengaluru</a><a href="/philosophy" aria-current={path === '/philosophy' ? 'page' : undefined}>The craft</a><a href="/story" aria-current={path === '/story' ? 'page' : undefined}>Our story</a></nav>
+  <div class="header-actions"><button class="button bag-button" data-open-bag>Bag <span data-bag-count>0</span><Icon name="bag"/></button><button class="icon-button menu-button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open navigation" data-menu><Icon name="menu"/></button></div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden><a href="/shop">Shop objects</a><a href="/shop?category=Bengaluru">A little Bengaluru</a><a href="/philosophy">The craft</a><a href="/story">Our story</a><a href="/faq">Good questions</a><a href="https://gubbiartclub.com">Gubbi Art Club ↗</a></nav>
+</header>
