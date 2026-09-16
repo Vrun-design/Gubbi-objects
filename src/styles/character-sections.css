@@ -106,13 +106,13 @@
  .gubbi-workshop { padding-block: 48px 40px; }
  .gubbi-personality-stamp { width: 80px; height: 80px; right: -14px; }
  .gubbi-personality-stamp > span { font-size: 16px; }
- .gubbi-workshop-card { gap: 0; }
+ .gubbi-workshop-card { grid-template-columns: 1fr; gap: 0; }
  .gubbi-workshop-images > video { min-height: 0; height: 300px; }
  .gubbi-workshop-copy { padding: 38px 24px 30px; }
  .gubbi-workshop h2 { font-size: 33px; }
  .gubbi-workshop-copy .button { width: 100%; justify-content: space-between; gap: 12px; }
  .gubbi-personality { padding: 50px 0 25px; }
- .gubbi-personality-layout { gap: 52px; }
+ .gubbi-personality-layout { grid-template-columns: 1fr; gap: 52px; }
  .gubbi-personality h2 { max-width: none; }
  .gubbi-personality dl > div { grid-template-columns: 95px 1fr; gap: 15px; }
  .gubbi-personality-print { width: min(100% - 24px, 280px); justify-self: center; margin: 0; }
