@@ -2,15 +2,63 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
 import '../styles/global.css';
 import '../styles/art-club.css';
-interface Props { title?: string; description?: string; }
-const { title = 'gubbi gang — Bengaluru memes, now in wood', description = 'Wooden collectibles that are basically Bengaluru memes — the traffic, the doomscroll, the 2am deploy — in the spirit of Channapatna craft. By Gubbi, Bengaluru.' } = Astro.props;
+interface Props { title?: string; description?: string; noindex?: boolean; image?: string; type?: 'website' | 'product' | 'article'; jsonld?: object | object[]; }
+const {
+  title = 'The Gubbi — little wooden characters from Bengaluru',
+  description = 'Little wooden collectibles with big personalities, hand-turned in Channapatna, Karnataka. Desk-sized, giftable, ships across India.',
+  noindex = false,
+  image = site.ogImage,
+  type = 'website',
+  jsonld,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname.replace(/(\/index)?\.html$/, ''), Astro.site).href.replace(/\/$/, '');
+const imageUrl = new URL(image, Astro.site).href;
+const graph = [
+  { '@type': 'Organization', '@id': `${site.url}/#org`, name: site.name, url: site.url, logo: `${site.url}/brand/gubbi-app-icon.svg`, email: site.email, sameAs: [site.instagram, site.youtube, site.x, site.artClub], address: { '@type': 'PostalAddress', addressLocality: 'Bengaluru', addressRegion: 'Karnataka', addressCountry: 'IN' } },
+  { '@type': 'WebSite', '@id': `${site.url}/#site`, name: site.name, url: site.url, publisher: { '@id': `${site.url}/#org` }, inLanguage: 'en-IN' },
+  ...(jsonld ? [jsonld].flat() : []),
+];
 ---
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width"/><meta name="description" content={description}/><meta name="robots" content="noindex, nofollow"/><meta name="theme-color" content="#2449d8"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><link rel="icon" href="/brand/gubbi-app-icon.svg"/><link rel="preload" href="/fonts/display.ttf" as="font" type="font/ttf" crossorigin/><link rel="preload" href="/fonts/body-bold.ttf" as="font" type="font/ttf" crossorigin/><title>{title}</title></head>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>{title}</title>
+<meta name="description" content={description}/>
+<link rel="canonical" href={canonical}/>
+{noindex ? <meta name="robots" content="noindex, nofollow"/> : <meta name="robots" content="index, follow, max-image-preview:large"/>}
+<meta name="theme-color" content="#2449d8"/>
+<meta name="color-scheme" content="light"/>
+<meta property="og:site_name" content={site.name}/>
+<meta property="og:type" content={type === 'product' ? 'product' : type}/>
+<meta property="og:locale" content="en_IN"/>
+<meta property="og:url" content={canonical}/>
+<meta property="og:title" content={title}/>
+<meta property="og:description" content={description}/>
+<meta property="og:image" content={imageUrl}/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content={`${site.name} — ${site.tagline}`}/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content={title}/>
+<meta name="twitter:description" content={description}/>
+<meta name="twitter:image" content={imageUrl}/>
+<link rel="icon" href="/favicon.ico" sizes="32x32"/>
+<link rel="icon" href="/brand/gubbi-app-icon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/site.webmanifest"/>
+<link rel="sitemap" href="/sitemap-index.xml"/>
+<link rel="preload" href="/fonts/display.ttf" as="font" type="font/ttf" crossorigin/>
+<link rel="preload" href="/fonts/body.ttf" as="font" type="font/ttf" crossorigin/>
+<link rel="preload" href="/fonts/body-bold.ttf" as="font" type="font/ttf" crossorigin/>
+<script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })}/>
+</head>
 <body><a class="skip" href="#main">Skip to content</a><Header/><main id="main"><slot/></main><Footer/>
-<dialog class="bag" id="bag" aria-labelledby="bag-title"><div class="bag__head"><span>The good stuff</span><button class="icon-button" data-close-bag aria-label="Close bag"><Icon name="close"/></button></div><h2 id="bag-title">Your little haul.</h2><p class="small muted">A preview bag. Real good taste.</p><div id="bag-items" class="bag__items"></div><div class="bag__empty" id="bag-empty"><img src="/brand/gubbi-flower.svg" alt="" width="90" height="90"/><h3>Swalpa empty in here.</h3><p>Excellent company is one click away.</p><a class="button" href="/shop">Meet the gang <Icon/></a></div><div class="bag__bottom" id="bag-summary" hidden><div class="subtotal"><span>Subtotal</span><strong data-bag-total></strong></div><p class="small muted">Illustrative prices. Shipping and taxes aren’t calculated. No payment will be taken.</p><a class="button button--wide" href="/checkout">Preview checkout <Icon/></a><button class="text-button" data-close-bag>Keep looking</button></div></dialog>
+<dialog class="bag" id="bag" aria-labelledby="bag-title"><div class="bag__head"><span>Your bag</span><button class="icon-button" data-close-bag aria-label="Close bag"><Icon name="close"/></button></div><h2 id="bag-title">Look at this haul.</h2><p class="small muted" data-bag-nudge>Free shipping across India over {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(site.freeShippingOver)}.</p><div id="bag-items" class="bag__items"></div><div class="bag__empty" id="bag-empty"><img src="/brand/gubbi-flower.svg" alt="" width="90" height="90"/><h3>Swalpa empty in here.</h3><p>Zero characters. Zero personality on the desk. Fixable in one click.</p><a class="button" href="/shop">Fix this <Icon/></a></div><div class="bag__bottom" id="bag-summary" hidden><div class="subtotal"><span>Subtotal</span><strong data-bag-total></strong></div><p class="small muted">Shipping calculated at checkout. Prices include GST.</p><a class="button button--wide" href="/checkout">Take my money <Icon/></a><button class="text-button" data-close-bag>One more look</button></div></dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>import '../scripts/storefront';
 import '../scripts/cursor';</script>

@@ -1,0 +1,13 @@
+---
+// One product photo. `view` picks the 4:3 hero (cards, home, bag) or a
+// 3:4 gallery render by 1-based index (PDP). Files come from
+// public/products/<slug>/, built by scripts/make-product-images.mjs.
+import { type Product, heroSrc, heroSrcset, gallerySrc, gallerySrcset } from '../data/products';
+interface Props { product: Product; view?: 'hero' | number; alt?: string; sizes?: string; eager?: boolean; class?: string; }
+const { product, view = 'hero', alt, sizes = '(max-width: 760px) 100vw, 33vw', eager = false, class: className } = Astro.props;
+const hero = view === 'hero';
+const src = hero ? heroSrc(product.slug) : gallerySrc(product.slug, view);
+const srcset = hero ? heroSrcset(product.slug) : gallerySrcset(product.slug, view);
+const label = alt ?? (hero ? product.alt : `${product.name}. ${product.views[view - 1]}`);
+---
+<img class:list={['product-image', hero ? 'product-image--hero' : 'product-image--gallery', className]} src={src} srcset={srcset} sizes={sizes} alt={label} width={hero ? 1600 : 1200} height={hero ? 1200 : 1600} loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : 'auto'}/>

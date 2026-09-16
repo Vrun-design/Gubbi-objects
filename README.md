@@ -13,18 +13,22 @@ Build with `npm run build`; output is `dist`. Preview a build with `npm run prev
 
 ## Included
 
-- Homepage with interactive personality picker and collection/gifting paths.
+- Homepage with showcase, craft notes, Art Club invitation and FAQs (FAQPage schema).
 - Shop with category filters, search, empty state and sorting.
-- Six product pages with full/detail concept views and image enlargement.
-- Browser-local bag, quantity controls, totals and checkout preview.
-- Story, philosophy, FAQs and a custom 404.
+- Six product pages with gallery, specs, care, shipping and Product schema.
+- Browser-local bag, quantity controls, shipping calculation and checkout with a backend seam.
+- Story, craft, shipping & returns, privacy, terms and a custom 404.
+- Sitemap, robots, canonical URLs, Open Graph card, favicons and web manifest.
 - Responsive layout, keyboard controls, native dialogs and reduced-motion support.
 
-## Preview boundaries
+## Before going live
 
-`public/Toy.png` is the supplied concept sheet, framed with CSS without modifying the source. Detail views are crops of that same concept, not additional photographs. Prices in `src/data/products.ts` are illustrative. Production specifications, final photography, pricing, taxes, shipping and returns must be confirmed before launch.
+- Product renders live in `product-source/<slug>/` (`hero.png` 4:3 for cards and the home page, `01.png`, `02.png`… 3:4 for the product page gallery). Run `node scripts/make-product-images.mjs` after adding or replacing a render; it writes the WebP sizes and a 1200×630 share card to `public/products/<slug>/`, which is what the site serves. Add a caption for each new render to `views` in `src/data/products.ts`.
+- Wire `placeOrder()` in `src/scripts/storefront.ts` to the order API and payment gateway.
+- Confirm the facts in `src/data/site.ts` (shipping cost, windows, return days, handles) and heights in `src/data/products.ts`.
+- Run `node scripts/make-assets.mjs` if the brand or tagline changes, to refresh favicons and `public/og/default.png`.
 
-Only the bag is stored in localStorage. Checkout details and gift notes are never sent or saved. No order, payment, reservation or email signup takes place. The website remains noindex.
+Only the bag is stored in localStorage.
 
 ## Check the frontend
 

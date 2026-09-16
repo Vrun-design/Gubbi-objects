@@ -1,6 +1,6 @@
 ---
-name: gubbi gang
-description: The Art Club visual language, adapted for a collection preview.
+name: The Gubbi
+description: The Art Club visual language, adapted for the shop.
 colors:
   paper: "#f8f5ea"
   paper-deep: "#eeeadd"
@@ -92,13 +92,13 @@ components:
     rounded: "{rounded.xl}"
     padding: "9px 17px"
 ---
-# Design System: gubbi gang
+# Design System: The Gubbi
 
 ## Overview
 
 **Creative North Star: Gubbi Art Club, directly.** The owner rejected an independent editorial identity. Carry the parent Art Club’s English **gubbi + flower** identity, typography, colors, taped photographs, hand-drawn underlines and playful composition into shopping. This is a direct family resemblance, not a new interpretation.
 
-Warm, local and lightly mischievous: generous paper grounds, confident type, tactile images and practical shopping controls. Concept imagery and illustrative prices remain visibly identified; the frontend takes no live orders or payments.
+Warm, local and lightly mischievous: generous paper grounds, confident type, tactile images and practical shopping controls. Written and laid out as a live shop: real prices, stock, shipping and returns.
 
 **Key characteristics:** English wordmark and flower; paper and cobalt; coral, yellow and sage accents; tilted prints; italic asides; clear commerce controls.
 
@@ -134,24 +134,24 @@ Small control corners are 6px, product images 8px and gift panels 12px. Filters 
 
 ## Components
 
-- **Identity and navigation:** English lowercase `gubbi`, flower, and small tracked `GANG`. Desktop brand is 42px, mobile 36px; footer uses the same identity in paper on cobalt. Main navigation is understated with active underlines; the bag is a cobalt action with a circular count.
+- **Identity and navigation:** English lowercase `gubbi` and flower. No suffix. Desktop brand is 42px, mobile 36px; footer uses the same identity in paper on cobalt. Main navigation is understated with active underlines; the bag is a cobalt action with a circular count.
 - **Buttons:** cobalt/cream, 13px DM, 50px minimum height, 15px 23px padding, 6px corners. Hover darkens and moves up 3px with a -1deg rotation. Light variants use paper/cobalt. Preserve visible keyboard focus: 3px outlines with 5px offset; buttons, links and summaries use cobalt, fields use coral.
 - **Filters and personality selectors:** outlined pills, minimum 44px height, ink/paper active state. Preserve active semantics and clear hover borders.
-- **Home sections:** hero → ticker → six-character grid → cobalt Silk Board shopping feature → picture-led craft and gifting story → photo-led Art Club workshop invitation → doubts. The owner removed voting on 16 September 2026: this should feel like a shop, not a concept ballot. Use generous product close-ups, taped prints, brief characterful copy and clear purchase actions. Workshop content explains activities and links to dates and booking on the Art Club site. Keep concept and illustrative-price disclosures while payments remain a preview.
+- **Home sections:** hero → ticker → six-character grid → cobalt Silk Board shopping feature → picture-led craft and gifting story → photo-led Art Club workshop invitation → doubts. The owner removed voting on 16 September 2026: this should feel like a shop, not a concept ballot. Use generous product close-ups, taped prints, brief characterful copy and clear purchase actions. Workshop content explains activities and links to dates and booking on the Art Club site.
 - **PDP story:** after the existing product details, show a character-specific quote, everyday scene and three personality facts beside a taped close-up print, on sage. Preserve the existing top gallery and purchasing layout.
-- **Product cards:** image first, open text below, 24px Space title, 13px illustrative price and compact description. Cobalt circular quick-add remains visibly actionable. Keep concept-image labels.
+- **Product cards:** image first, open text below, 24px Space title, 13px price and compact description. Cobalt circular quick-add remains visibly actionable.
 - **Fields:** cream checkout inputs with line-strong borders, 2px corners and 12px padding. Search uses a quieter underlined field. Keep labels and native validation readable.
 - **Photos and signatures:** taped hero print at -5deg, yellow circular stamp, cobalt flower, curved arrow and hand underline. Reuse these Art Club motifs with restraint and retain image subject visibility.
-- **Shopping dialogs:** paper bag drawer, dark scrim, explicit close and quantity controls. Preview checkout must clearly state that no payment or order is taken.
+- **Shopping dialogs:** paper bag drawer, dark scrim, explicit close and quantity controls. Checkout shows subtotal, shipping and total, and hands off to payment.
 
 ## Do's and Don'ts
 
 - **Do** copy the parent Art Club’s established visual language and adapt content for shopping.
 - **Do** write in Bengaluru Kanglish, Latin script only, with the plain meaning close by.
 - **Do** use the English gubbi lettering plus flower in header, footer, empty states and favicon.
-- **Do** preserve the supplied six product concepts, concept-image disclosures and illustrative-price labels.
+- **Do** preserve the supplied six product images.
 - **Do** keep focus, reduced motion, mobile layouts and shopping controls usable.
 - **Don't** create an independent editorial identity or substitute a hybrid/Kannada wordmark.
-- **Don't** use bird icons anywhere on this website. Supplied product concept artwork stays intact.
+- **Don't** use bird icons anywhere on this website. Supplied product artwork stays intact.
 - **Don't** put a label or eyebrow above a heading; the heading carries its own weight.
-- **Don't** imply real orders, stock, production guarantees or fulfilled nest-box impact from this frontend preview.
+- **Don't** invent maker names, partners or nest-box counts.

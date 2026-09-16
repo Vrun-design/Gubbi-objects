@@ -1,13 +1,15 @@
 ---
 import Icon from './Icon.astro';
 import Flower from './Flower.astro';
+import { site } from '../data/site';
 const path = Astro.url.pathname;
 const current = (test: boolean) => (test ? 'page' : undefined);
+const free = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(site.freeShippingOver);
 ---
-<a class="announcement" href="/shop">Bengaluru memes. Now in wood. <span>Meet the gang</span><Icon/></a>
+<a class="announcement" href="/shop">Ships across India. Free over {free}. <span>Meet everyone</span><Icon/></a>
 <header class="site-header wrap">
-  <nav class="desktop-nav desktop-nav--left" aria-label="Main navigation"><a href="/shop" aria-current={current(path.includes('/shop') || path.includes('/gang/'))}>Shop</a><a href="/philosophy" aria-current={current(path === '/philosophy')}>The craft</a></nav>
-  <a class="brand" href="/" aria-label="Gubbi home"><Flower class="brand-flower"/><span>gubbi</span></a>
+  <nav class="desktop-nav desktop-nav--left" aria-label="Main navigation"><a href="/shop" aria-current={current(path.startsWith('/shop'))}>Shop</a><a href="/philosophy" aria-current={current(path === '/philosophy')}>The craft</a></nav>
+  <a class="brand" href="/" aria-label="The Gubbi home"><Flower class="brand-flower"/><span>gubbi</span></a>
   <div class="header-actions"><nav class="desktop-nav desktop-nav--right" aria-label="More navigation"><a href="/story" aria-current={current(path === '/story')}>Our story</a></nav><button class="button bag-button" data-open-bag><Icon name="bag"/>Bag <span data-bag-count>0</span></button><button class="icon-button menu-button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open navigation" data-menu><Icon name="menu"/></button></div>
-  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden><a href="/shop">Shop</a><a href="/philosophy">The craft</a><a href="/story">Our story</a><a href="https://gubbiartclub.com">Gubbi Art Club ↗</a></nav>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden><a href="/shop">Shop</a><a href="/philosophy">The craft</a><a href="/story">Our story</a><a href="/shipping-and-returns">Shipping &amp; returns</a><a href={site.artClub}>Gubbi Art Club ↗</a></nav>
 </header>

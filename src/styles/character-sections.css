@@ -1,122 +1,123 @@
 /* Shop stories: the same Gubbi paper, colour and taped-print vocabulary. */
 
 /* Limelight: one print, one ticket, quiet controls. Cobalt band. */
-.gang-feature { background: var(--blue); color: var(--paper); padding: 72px 0 56px; overflow: hidden; }
-.gang-feature-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 48px; }
-.gang-feature h2 { font-size: var(--text-display-md); letter-spacing: -.04em; margin: 0; }
-.gang-feature h2 em { color: var(--yellow); }
-.gang-feature-layout { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); gap: clamp(40px, 7vw, 96px); align-items: center; }
-.gang-feature-print { margin: 0; background: var(--cream); padding: 10px 10px 0; rotate: -1deg; box-shadow: var(--shadow-lg); }
-.gang-feature-print figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 12px 6px 10px; color: var(--ink); font: italic 15px/1.3 var(--font-serif); }
-.gang-feature-print figcaption > span:last-child { font: 10px var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); flex-shrink: 0; }
-.gang-feature-ticket { max-width: 520px; }
-.gang-feature-kicker { margin: 0 0 14px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--blue-pale); font-variant-numeric: tabular-nums; }
-.gang-feature-ticket h3 { font-size: clamp(30px, 3vw, 44px); letter-spacing: -.03em; line-height: 1.05; margin: 0; }
-.gang-feature-quote { font: italic 22px/1.35 var(--font-serif); color: var(--yellow); margin: 14px 0 18px; }
-.gang-feature-ticket > p:not(.gang-feature-quote):not(.gang-feature-kicker):not(.gang-feature-note) { color: var(--blue-pale); max-width: 46ch; font-size: 15px; line-height: 1.7; margin: 0; }
-.gang-feature-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 28px; margin-top: 30px; }
-.gang-feature-actions .button { background: var(--yellow); border-color: var(--yellow); color: var(--ink); gap: 22px; width: auto; }
-.gang-feature-actions .button:hover { background: var(--paper); border-color: var(--paper); }
-.gang-feature-price { font-weight: 700; font-variant-numeric: tabular-nums; }
-.gang-feature-actions .text-link { color: var(--paper); }
-.gang-feature-note { margin: 14px 0 0; font-size: 11px; color: var(--blue-pale); opacity: .8; }
+.gubbi-feature { background: var(--blue); color: var(--paper); padding: 72px 0 56px; overflow: hidden; }
+.gubbi-feature-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 48px; }
+.gubbi-feature h2 { font-size: var(--text-display-md); letter-spacing: -.04em; margin: 0; }
+.gubbi-feature h2 em { color: var(--yellow); }
+.gubbi-feature-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 88px); align-items: center; }
+.gubbi-feature-print { margin: 0; background: var(--cream); padding: 10px 10px 0; rotate: -1deg; box-shadow: var(--shadow-lg); }
+.gubbi-feature-print .product-image { aspect-ratio: 3 / 2; object-fit: cover; }
+.gubbi-feature-print figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 12px 6px 10px; color: var(--ink); font: italic 15px/1.3 var(--font-serif); }
+.gubbi-feature-print figcaption > span:last-child { font: 10px var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); flex-shrink: 0; }
+.gubbi-feature-ticket { max-width: 560px; }
+.gubbi-feature-kicker { margin: 0 0 14px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--blue-pale); font-variant-numeric: tabular-nums; }
+.gubbi-feature-ticket h3 { font-size: clamp(30px, 3vw, 44px); letter-spacing: -.03em; line-height: 1.05; margin: 0; }
+.gubbi-feature-quote { font: italic 22px/1.35 var(--font-serif); color: var(--yellow); margin: 14px 0 18px; }
+.gubbi-feature-ticket > p:not(.gubbi-feature-quote):not(.gubbi-feature-kicker):not(.gubbi-feature-note) { color: var(--blue-pale); max-width: 46ch; font-size: 15px; line-height: 1.7; margin: 0; }
+.gubbi-feature-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 28px; margin-top: 30px; }
+.gubbi-feature-actions .button { background: var(--yellow); border-color: var(--yellow); color: var(--ink); gap: 22px; width: auto; }
+.gubbi-feature-actions .button:hover { background: var(--paper); border-color: var(--paper); }
+.gubbi-feature-price { font-weight: 700; font-variant-numeric: tabular-nums; }
+.gubbi-feature-actions .text-link { color: var(--paper); }
+.gubbi-feature-note { margin: 14px 0 0; font-size: 11px; color: var(--blue-pale); opacity: .8; }
 
 /* Chikka things: sage band, one heading row, three numbered notes. */
-.gang-craft { background: var(--green); padding: 90px 0 80px; }
-.gang-craft-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--green-line-soft); }
-.gang-craft h2 { font-size: var(--text-display-md); letter-spacing: -.04em; margin: 0; }
-.gang-craft h2 em { color: var(--blue); }
-.gang-craft-heading > div { max-width: 36ch; }
-.gang-craft-heading p { margin: 0 0 16px; font-size: 15px; line-height: 1.7; color: var(--ink-soft); }
-.gang-craft-heading .text-link { color: var(--blue); }
-.gang-craft-notes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; }
-.gang-craft-notes li { padding-top: 32px; }
-.gang-craft-icon { display: grid; place-items: center; width: 52px; height: 52px; margin-bottom: 28px; border: 1px solid var(--green-line-soft); border-radius: 50%; background: var(--cream); color: var(--blue); }
-.gang-craft-icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.gang-craft-notes h3 { font-size: 22px; letter-spacing: -.02em; margin: 0 0 12px; }
-.gang-craft-notes p { margin: 0; max-width: 34ch; font-size: 14px; line-height: 1.7; color: var(--ink-soft); }
+.gubbi-craft { background: var(--green); padding: 90px 0 80px; }
+.gubbi-craft-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--green-line-soft); }
+.gubbi-craft h2 { font-size: var(--text-display-md); letter-spacing: -.04em; margin: 0; }
+.gubbi-craft h2 em { color: var(--blue); }
+.gubbi-craft-heading > div { max-width: 36ch; }
+.gubbi-craft-heading p { margin: 0 0 16px; font-size: 15px; line-height: 1.7; color: var(--ink-soft); }
+.gubbi-craft-heading .text-link { color: var(--blue); }
+.gubbi-craft-notes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; }
+.gubbi-craft-notes li { padding-top: 32px; }
+.gubbi-craft-icon { display: grid; place-items: center; width: 52px; height: 52px; margin-bottom: 28px; border: 1px solid var(--green-line-soft); border-radius: 50%; background: var(--cream); color: var(--blue); }
+.gubbi-craft-icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.gubbi-craft-notes h3 { font-size: 22px; letter-spacing: -.02em; margin: 0 0 12px; }
+.gubbi-craft-notes p { margin: 0; max-width: 34ch; font-size: 14px; line-height: 1.7; color: var(--ink-soft); }
 
 @media (max-width: 1000px) {
- .gang-craft-notes { gap: 32px; }
- .gang-feature-layout { grid-template-columns: minmax(0, 360px) minmax(0, 1fr); }
+ .gubbi-craft-notes { gap: 32px; }
+ .gubbi-feature-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 }
 @media (max-width: 760px) {
- .gang-feature { padding: 52px 0 44px; }
- .gang-feature-heading { flex-direction: column; align-items: start; gap: 20px; margin-bottom: 28px; }
- .gang-feature h2 { font-size: 34px; }
- .gang-feature-layout { grid-template-columns: 1fr; gap: 28px; }
- .gang-feature-print { width: min(100% - 12px, 320px); margin-inline: auto; }
- .gang-feature-print figcaption { font-size: 13px; padding: 8px 2px 6px; gap: 8px; }
- .gang-feature-ticket h3 { font-size: 30px; }
- .gang-feature-quote { font-size: 19px; margin: 10px 0 14px; }
- .gang-feature-actions { margin-top: 22px; gap: 12px 20px; }
- .gang-feature-actions .button { width: 100%; justify-content: space-between; }
- .gang-craft { padding: 56px 0 48px; }
- .gang-craft-heading { flex-direction: column; align-items: start; gap: 16px; padding-bottom: 28px; }
- .gang-craft h2 { font-size: 34px; }
- .gang-craft-heading > div { max-width: none; }
- .gang-craft-notes { grid-template-columns: 1fr; gap: 0; }
- .gang-craft-notes li { padding: 24px 0; border-top: 1px solid var(--green-line-soft); }
- .gang-craft-notes li:first-child { border-top: 0; }
- .gang-craft-icon { width: 44px; height: 44px; margin-bottom: 16px; }
- .gang-craft-notes h3 { font-size: 20px; }
- .gang-craft-notes p { max-width: none; }
+ .gubbi-feature { padding: 52px 0 44px; }
+ .gubbi-feature-heading { flex-direction: column; align-items: start; gap: 20px; margin-bottom: 28px; }
+ .gubbi-feature h2 { font-size: 34px; }
+ .gubbi-feature-layout { grid-template-columns: 1fr; gap: 28px; }
+ .gubbi-feature-print { width: min(100% - 12px, 320px); margin-inline: auto; }
+ .gubbi-feature-print figcaption { font-size: 13px; padding: 8px 2px 6px; gap: 8px; }
+ .gubbi-feature-ticket h3 { font-size: 30px; }
+ .gubbi-feature-quote { font-size: 19px; margin: 10px 0 14px; }
+ .gubbi-feature-actions { margin-top: 22px; gap: 12px 20px; }
+ .gubbi-feature-actions .button { width: 100%; justify-content: space-between; }
+ .gubbi-craft { padding: 56px 0 48px; }
+ .gubbi-craft-heading { flex-direction: column; align-items: start; gap: 16px; padding-bottom: 28px; }
+ .gubbi-craft h2 { font-size: 34px; }
+ .gubbi-craft-heading > div { max-width: none; }
+ .gubbi-craft-notes { grid-template-columns: 1fr; gap: 0; }
+ .gubbi-craft-notes li { padding: 24px 0; border-top: 1px solid var(--green-line-soft); }
+ .gubbi-craft-notes li:first-child { border-top: 0; }
+ .gubbi-craft-icon { width: 44px; height: 44px; margin-bottom: 16px; }
+ .gubbi-craft-notes h3 { font-size: 20px; }
+ .gubbi-craft-notes p { max-width: none; }
 }
 
-.gang-workshop { padding-block: 85px; }
-.gang-workshop-card { background: var(--blue); display: grid; grid-template-columns: 1.12fr .88fr; border-radius: var(--radius-lg); overflow: hidden; }
-.gang-workshop-images { min-width: 0; }
-.gang-workshop-images > video { display: block; width: 100%; height: 100%; min-height: 500px; object-fit: cover; background: var(--blue-deep); }
-.gang-workshop-copy { padding: 65px 52px 55px 65px; align-self: center; color: var(--paper); }
-.gang-workshop h2 { font-size: var(--text-display-md); }
-.gang-workshop h2 em { color: var(--yellow); }
-.gang-workshop-copy > p { margin: 24px 0; color: var(--blue-pale); }
-.gang-workshop-copy ul { list-style: none; padding: 0; margin: 0 0 28px; display: flex; flex-wrap: wrap; gap: 6px 17px; }
-.gang-workshop-copy li { font-size: 13px; border-bottom: 1px solid var(--line-on-dark); padding-bottom: 5px; }
-.gang-workshop-copy .button { gap: 20px; background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
-.gang-workshop-copy .button:hover { background: var(--paper); border-color: var(--paper); }
-.gang-workshop-copy .gang-workshop-note { font-size: 12px; color: var(--blue-pale); margin: 16px 0 0; }
-.gang-personality { background: var(--green); padding: 90px 0 30px; overflow: hidden; }
-.gang-personality-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 9%; align-items: center; }
-.gang-personality h2 { color: var(--blue); max-width: 12ch; font-size: clamp(42px,5vw,68px); }
-.gang-personality-mood { font: italic 23px/1.4 var(--font-serif); margin: 24px 0 18px; }
-.gang-personality-copy > p:not(.gang-personality-mood) { max-width: 47ch; color: var(--ink-soft); }
-.gang-personality dl { margin: 30px 0 0; }
-.gang-personality dl > div { display: grid; grid-template-columns: 110px 1fr; gap: 18px; border-top: 1px solid var(--green-line-soft); padding: 15px 0; font-size: 14px; line-height: 1.6; }
-.gang-personality dt { color: var(--ink-muted); }
-.gang-personality dd { margin: 0; }
-.gang-personality-print { position: relative; background: var(--cream); padding: 13px 13px 0; margin: 0 15px 0 0; rotate: 3deg; box-shadow: var(--shadow-lg); }
-.gang-personality-close { overflow: hidden; }
-.gang-personality-print figcaption { padding: 22px 12px 15px; display: flex; justify-content: space-between; gap: 20px; align-items: center; font-size: 20px; font-weight: 700; }
-.gang-personality-print figcaption small { display: block; font: italic 16px/1.4 var(--font-serif); margin-top: 7px; }
-.gang-personality-print figcaption > span:last-child { flex-shrink: 0; color: var(--blue); font-size: 13px; }
-.gang-personality-stamp { position: absolute; width: 106px; height: 106px; top: -42px; right: -25px; display: grid; place-items: center; rotate: -14deg; }
-.gang-personality-stamp > svg { position: absolute; width: 100%; height: 100%; color: var(--yellow); }
-.gang-personality-stamp > svg circle { fill: var(--yellow); }
-.gang-personality-stamp > span { position: relative; text-align: center; font: italic 17px/1.15 var(--font-serif); color: var(--ink); }
-.gang-personality-image-note { font-size: 10px; color: var(--ink-muted); margin: 0; padding: 0 12px 16px; }
-.gang-personality-signoff { border-top: 1px solid var(--green-line-soft); margin-top: 70px; padding-top: 25px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.gang-personality-signoff > span { font: italic 20px/1.4 var(--font-serif); }
+.gubbi-workshop { padding-block: 85px; }
+.gubbi-workshop-card { background: var(--blue); display: grid; grid-template-columns: 1.12fr .88fr; border-radius: var(--radius-lg); overflow: hidden; }
+.gubbi-workshop-images { min-width: 0; }
+.gubbi-workshop-images > video { display: block; width: 100%; height: 100%; min-height: 500px; object-fit: cover; background: var(--blue-deep); }
+.gubbi-workshop-copy { padding: 65px 52px 55px 65px; align-self: center; color: var(--paper); }
+.gubbi-workshop h2 { font-size: var(--text-display-md); }
+.gubbi-workshop h2 em { color: var(--yellow); }
+.gubbi-workshop-copy > p { margin: 24px 0; color: var(--blue-pale); }
+.gubbi-workshop-copy ul { list-style: none; padding: 0; margin: 0 0 28px; display: flex; flex-wrap: wrap; gap: 6px 17px; }
+.gubbi-workshop-copy li { font-size: 13px; border-bottom: 1px solid var(--line-on-dark); padding-bottom: 5px; }
+.gubbi-workshop-copy .button { gap: 20px; background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
+.gubbi-workshop-copy .button:hover { background: var(--paper); border-color: var(--paper); }
+.gubbi-workshop-copy .gubbi-workshop-note { font-size: 12px; color: var(--blue-pale); margin: 16px 0 0; }
+.gubbi-personality { background: var(--green); padding: 90px 0 30px; overflow: hidden; }
+.gubbi-personality-layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: 8%; align-items: center; }
+.gubbi-personality h2 { color: var(--blue); max-width: 12ch; font-size: clamp(42px,5vw,68px); }
+.gubbi-personality-mood { font: italic 23px/1.4 var(--font-serif); margin: 24px 0 18px; }
+.gubbi-personality-copy > p:not(.gubbi-personality-mood) { max-width: 47ch; color: var(--ink-soft); }
+.gubbi-personality dl { margin: 30px 0 0; }
+.gubbi-personality dl > div { display: grid; grid-template-columns: 110px 1fr; gap: 18px; border-top: 1px solid var(--green-line-soft); padding: 15px 0; font-size: 14px; line-height: 1.6; }
+.gubbi-personality dt { color: var(--ink-muted); }
+.gubbi-personality dd { margin: 0; }
+.gubbi-personality-print { position: relative; width: min(100%, 280px); justify-self: end; background: var(--cream); padding: 10px 10px 0; margin: 0 28px 0 0; rotate: 3deg; box-shadow: var(--shadow-lg); }
+.gubbi-personality-close { overflow: hidden; }
+.gubbi-personality-print figcaption { padding: 14px 8px 10px; display: flex; justify-content: space-between; gap: 20px; align-items: center; font-size: 15px; font-weight: 700; }
+.gubbi-personality-print figcaption small { display: block; font: italic 13px/1.4 var(--font-serif); margin-top: 4px; }
+.gubbi-personality-print figcaption > span:last-child { flex-shrink: 0; color: var(--blue); font-size: 13px; }
+.gubbi-personality-stamp { position: absolute; width: 84px; height: 84px; top: -34px; right: -26px; display: grid; place-items: center; rotate: -14deg; }
+.gubbi-personality-stamp > svg { position: absolute; width: 100%; height: 100%; color: var(--yellow); }
+.gubbi-personality-stamp > svg circle { fill: var(--yellow); }
+.gubbi-personality-stamp > span { position: relative; text-align: center; font: italic 15px/1.15 var(--font-serif); color: var(--ink); }
+.gubbi-personality-image-note { font-size: 11px; color: var(--ink-muted); margin: 0; padding: 0 8px 12px; }
+.gubbi-personality-signoff { border-top: 1px solid var(--green-line-soft); margin-top: 70px; padding-top: 25px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.gubbi-personality-signoff > span { font: italic 20px/1.4 var(--font-serif); }
 @media (max-width: 1000px) {
- .gang-workshop-copy { padding: 40px 28px 40px 42px; }
- .gang-personality-print figcaption { font-size: 17px; }
+ .gubbi-workshop-copy { padding: 40px 28px 40px 42px; }
+ .gubbi-personality-print figcaption { font-size: 17px; }
 }
 @media (max-width: 760px) {
- .gang-workshop { padding-block: 48px 40px; }
- .gang-personality-stamp { width: 95px; height: 95px; right: -12px; }
- .gang-personality-stamp > span { font-size: 16px; }
- .gang-workshop-card { gap: 0; }
- .gang-workshop-images > video { min-height: 0; height: 300px; }
- .gang-workshop-copy { padding: 38px 24px 30px; }
- .gang-workshop h2 { font-size: 33px; }
- .gang-workshop-copy .button { width: 100%; justify-content: space-between; gap: 12px; }
- .gang-personality { padding: 50px 0 25px; }
- .gang-personality-layout { gap: 52px; }
- .gang-personality h2 { max-width: none; }
- .gang-personality dl > div { grid-template-columns: 95px 1fr; gap: 15px; }
- .gang-personality-print { margin: 0 12px; }
- .gang-personality-signoff { margin-top: 42px; display: grid; gap: 16px; }
- .gang-personality-signoff > span { font-size: 19px; }
+ .gubbi-workshop { padding-block: 48px 40px; }
+ .gubbi-personality-stamp { width: 80px; height: 80px; right: -14px; }
+ .gubbi-personality-stamp > span { font-size: 16px; }
+ .gubbi-workshop-card { gap: 0; }
+ .gubbi-workshop-images > video { min-height: 0; height: 300px; }
+ .gubbi-workshop-copy { padding: 38px 24px 30px; }
+ .gubbi-workshop h2 { font-size: 33px; }
+ .gubbi-workshop-copy .button { width: 100%; justify-content: space-between; gap: 12px; }
+ .gubbi-personality { padding: 50px 0 25px; }
+ .gubbi-personality-layout { gap: 52px; }
+ .gubbi-personality h2 { max-width: none; }
+ .gubbi-personality dl > div { grid-template-columns: 95px 1fr; gap: 15px; }
+ .gubbi-personality-print { width: min(100% - 24px, 280px); justify-self: center; margin: 0; }
+ .gubbi-personality-signoff { margin-top: 42px; display: grid; gap: 16px; }
+ .gubbi-personality-signoff > span { font-size: 19px; }
 }
 
 /* A quiet, compact questions index on the same paper ground. */

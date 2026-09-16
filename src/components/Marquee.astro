@@ -1,0 +1,8 @@
+---
+// The yellow ticker. One component so every marquee on the site matches:
+// uppercase phrases separated by the asterisk, paused on hover.
+import Asterisk from './Asterisk.astro';
+interface Props { phrases: string[]; }
+const { phrases } = Astro.props;
+---
+<div class="club-marquee"><div class="club-ticker" aria-label={phrases.join('. ')}><div class="club-marquee-track" aria-hidden="true">{[0,1].map(()=><div class="club-marquee-group">{phrases.map(phrase=><><span>{phrase}</span><Asterisk/></>)}</div>)}</div></div></div>

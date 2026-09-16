@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
+---
+<Layout title="Privacy policy — The Gubbi" description="What The Gubbi collects when you shop, why, and how to ask us to delete it.">
+<article class="policy wrap">
+ <header><h1>Privacy,<br/><span class="serif">plainly.</span></h1><p>We collect what we need to send you a parcel and nothing that we don’t. Last updated 16 September 2026.</p></header>
+ <section>
+  <h2>What we collect</h2>
+  <ul>
+   <li><strong>When you order:</strong> your name, email, phone number and delivery address, plus your gift note if you write one. We need these to deliver and to reach you about the order.</li>
+   <li><strong>When you pay:</strong> payment is handled by our payment partner on their secure page. We never see or store your card, UPI or bank details.</li>
+   <li><strong>When you browse:</strong> your bag is saved in your own browser’s storage so it is still there when you come back. It never leaves your device unless you place an order.</li>
+   <li><strong>When you write to us:</strong> your email and whatever you tell us, so we can reply.</li>
+  </ul>
+ </section>
+ <section>
+  <h2>What we don’t do</h2>
+  <p>We don’t sell or rent your details. We don’t add you to a mailing list without asking. We don’t run advertising trackers. If we add analytics, it will be privacy-respecting, cookie-free and disclosed here.</p>
+ </section>
+ <section>
+  <h2>Who else sees it</h2>
+  <p>Only the people who need it to get your order to you: our payment partner (to take payment), our courier (name, phone and address, to deliver) and our hosting provider (which stores the site and order records). Each is bound to use it only for that.</p>
+ </section>
+ <section>
+  <h2>How long we keep it</h2>
+  <p>Order details are kept for as long as Indian tax and accounting law requires, currently eight years. Everything else is deleted when it is no longer needed.</p>
+ </section>
+ <section>
+  <h2>Your rights</h2>
+  <p>You can ask to see, correct or delete the personal data we hold about you at any time. Email <a href={`mailto:${site.email}`}>{site.email}</a> and we will respond within 30 days. This policy follows India’s Digital Personal Data Protection Act, 2023.</p>
+ </section>
+</article>
+</Layout>

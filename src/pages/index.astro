@@ -3,75 +3,78 @@ import Layout from '../layouts/Layout.astro';
 import ProductCard from '../components/ProductCard.astro';
 import ProductShowcase from '../components/ProductShowcase.astro';
 import Flower from '../components/Flower.astro';
+import Marquee from '../components/Marquee.astro';
 import Icon from '../components/Icon.astro';
-import { products } from '../data/products';
+import { products, collection } from '../data/products';
+import { site } from '../data/site';
 import fs from 'node:fs';
 import '../styles/character-sections.css';
 
-const phrases = ['SWALPA ADJUST MAADI', 'ONE TEA BEKU', 'SILK BOARD IS A STATE OF MIND', 'METER HAAKI BOSS', 'OLD CRAFT. NEW MISCHIEF.', 'SIKKAPATTE CHENNAGIDE'];
+const phrases = ['SWALPA ADJUST MAADI', 'ONE TEA BEKU', 'SILK BOARD IS A STATE OF MIND', 'BARTHA IDINI, TWO MINUTES', 'WORKS ON MY MACHINE', 'SPIN BEFORE SHIPPING', 'OLD CRAFT. NEW MISCHIEF.', 'SIKKAPATTE CHENNAGIDE'];
+const inr = (value: number) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(value);
 
-const doubts = [
-  ['Boss, can I actually buy these?', 'Not yet. This is a collection preview. Look around, build a bag, poke at checkout — but no order is placed and no payment is taken.'],
-  ['Are the prices final?', 'No. Every price here is illustrative, so you can try the shopping flow. Approved prices and any charges get published before orders open.'],
-  ['Will he look exactly like the picture?', 'The pictures are the concept sheet. Prototypes and production will shape the final form, materials and finish. Real photography and specs come before launch.'],
-  ['Toys, or grown-up things?', 'Grown-up things. Collectible objects for adult desks and shelves, in the spirit of Channapatna gombe. Not offered as children’s toys.'],
-  ['Who is making them?', 'Our intended starting point is Channapatna’s craft community. Production partners, maker names and materials are not confirmed yet — they get named when the first batch is approved, not before.'],
-  ['Shipping? Returns? Delivery eshtu days?', 'Regions, timelines, costs and return terms get confirmed before the first collection goes on sale. No shipping promise applies to this preview.'],
-  ['Can I gift one?', 'That is very much the idea. For now you can add a gift note at preview checkout and see how it feels. Nothing is sent.'],
-  ['Does the site save my information?', 'Only your preview bag, and only in this browser. Checkout details and gift notes are not submitted or stored. No account, no mailing list.'],
-  ['Innu jaasti bartha? More coming?', 'That’s the plan. These six are the starting concepts. More local stories and uncomfortably familiar personalities follow as we work through prototypes.'],
+const doubts: [string, string][] = [
+  ['Toys, or grown-up things?', 'Grown-up things. Decorative collectibles for adult desks and shelves, in the spirit of the Channapatna gombe. Not a toy, and not for children under 14.'],
+  ['What are they made of?', `${collection.material}. The same tradition that made the gombe on your ajji’s shelf, with slightly more existential dread on the base.`],
+  ['How big are they?', 'Desk-sized. Between 6 and 11 cm tall, depending on the character. Big enough to have a presence, small enough to survive a desk move.'],
+  ['Where are they made?', 'Channapatna, about 60 km from Bengaluru, by makers who have been turning wood and pressing lac colour onto it for generations. Each piece is hand-turned, so no two are identical.'],
+  ['Shipping? Delivery eshtu days?', `We ship across India. Orders leave in ${site.dispatchDays} and usually arrive in ${site.deliveryDays}. Shipping is ${inr(site.shippingFlat)}, free over ${inr(site.freeShippingOver)}.`],
+  ['What if it arrives damaged, or I change my mind?', `Write to us within ${site.returnDays} days of delivery and we will sort it: a replacement for anything damaged in transit, or a return for an unused piece in its box. Full terms are on the shipping and returns page.`],
+  ['Can I gift one?', 'That is very much the idea. Add a gift note at checkout and we will put it in the box, handwritten. No prices on the packing slip.'],
+  ['Will mine look exactly like the picture?', 'Close, not identical. Lac colour sits differently on every turn of wood, so each piece has its own grain and its own small quirks. That is the point of buying something made by hands.'],
+  ['Innu jaasti bartha? More coming?', 'Yes. These six are the first collection. More local stories and uncomfortably familiar personalities follow. Follow @thegubbi to hear first.'],
 ];
+const faqJsonld = { '@type': 'FAQPage', mainEntity: doubts.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) };
 
-
-// Words that complete “make room for the ___”. The first one is the name.
-const rotating = ['gang.', 'desk.', 'bestie.', 'chaos.', 'drama.', 'city.'];
+// Words that complete “make room for the ___”.
+const rotating = ['desk.', 'bestie.', 'prompt.', 'vibe.', 'drama.'];
 // Drop a hero image at public/hero-bg.jpg and it is picked up at build time.
 const heroImage = ['hero-bg.jpg', 'hero-bg.png', 'hero-bg.webp'].map(name => `/${name}`).find(name => fs.existsSync(`public${name}`));
 ---
-<Layout>
+<Layout jsonld={faqJsonld}>
 <section class="hero-center">
  {heroImage && <img class="hero-center-bg" src={heroImage} alt="" width="2400" height="1600" fetchpriority="high"/>}
  <div class="wrap hero-center-inner">
-  <p class="hero-center-meta">Bengaluru · Wooden collectibles · Channapatna craft</p>
+  <p class="hero-center-meta">Hand-turned in Channapatna · Desk-sized · Ships across India</p>
   <h1><span class="hero-center-serif">Swalpa</span> adjust<br/>maadi for the <span class="hero-center-word" data-rotate>{rotating[0]}</span></h1>
-  <p class="hero-center-lede">Wooden collectibles that are basically Bengaluru memes — the traffic, the scroll, the 2am deploy.</p>
-  <a class="button" href="#gang">Meet the gang <Icon/></a>
+  <p class="hero-center-lede">Little wooden characters, hand-turned in Channapatna. Two centuries of craft, one new attitude problem.</p>
+  <a class="button" href="#everyone">Meet everyone <Icon/></a>
   <div class="club-hero-note"><Flower/><span>Company for your desk. Gifts for your bestie.</span></div>
  </div>
 </section>
 
-<div class="club-marquee"><div class="club-ticker" aria-label={phrases.join('. ')}><div class="club-marquee-track" aria-hidden="true">{[0,1].map(()=><div class="club-marquee-group">{phrases.map(phrase=><><span>{phrase}</span><Flower/></>)}</div>)}</div></div></div>
+<Marquee phrases={phrases}/>
 
-<section class="club-section wrap" id="gang">
- <header class="section-head"><div><h2>Meet the <em>gang.</em></h2><p>Six personalities. One deeply relatable city. All of them unemployed.</p></div><a class="text-link" href="/shop">Sort, filter, spiral <Icon/></a></header>
+<section class="club-section wrap" id="everyone">
+ <header class="section-head"><div><h2>Meet <em>everyone.</em></h2><p>Six personalities. All of them unemployed.</p></div><a class="text-link" href="/shop">Sort, filter, spiral <Icon/></a></header>
  <div class="product-grid">{products.map(product=><ProductCard product={product}/>)}</div>
 </section>
 
 <ProductShowcase/>
 
-<section class="gang-craft" aria-labelledby="deal-title">
+<section class="gubbi-craft" aria-labelledby="deal-title">
  <div class="wrap">
-  <header class="gang-craft-heading">
+  <header class="gubbi-craft-heading">
    <h2 id="deal-title">Chikka things.<br/><em>Dodda personality.</em></h2>
-   <div><p>Little collectibles. Big Bengaluru energy. A bit of the city you can actually make room for.</p><a class="text-link" href="/philosophy">Get to know the craft <Icon/></a></div>
+   <div><p>Little collectibles with a story you already know. About the city, the internet, and the job that follows you home.</p><a class="text-link" href="/philosophy">Get to know the craft <Icon/></a></div>
   </header>
-  <ol class="gang-craft-notes">
-   <li><span class="gang-craft-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="3"/><path d="M9.5 8.5c-1.5 3-3 5.5-3 8.5h11c0-3-1.5-5.5-3-8.5M7.5 13.5h9M5.5 20.5h13"/></svg></span><h3>Old craft. New mischief.</h3><p>Inspired by Channapatna’s turned wood and lac colour. Reimagined around traffic, screen time and the very last deployment.</p></li>
-   <li><span class="gang-craft-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11h-8l-4 4v-4H4zM8 9h8M8 12.5h5"/></svg></span><h3>A desk mate with a backstory.</h3><p>Every character has a situation. You’ll recognise it. Your colleagues may feel personally attacked.</p></li>
-   <li><span class="gang-craft-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14M12 7c-2.5-4-6.5-2.5-5 0M12 7c2.5-4 6.5-2.5 5 0"/></svg></span><h3>“This is so you.” In a box.</h3><p>For the always-late friend. The terminally online bestie. Or yourself. Especially yourself.</p></li>
+  <ol class="gubbi-craft-notes">
+   <li><span class="gubbi-craft-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="3"/><path d="M9.5 8.5c-1.5 3-3 5.5-3 8.5h11c0-3-1.5-5.5-3-8.5M7.5 13.5h9M5.5 20.5h13"/></svg></span><h3>Old craft. New mischief.</h3><p>Hand-turned in Channapatna. Lac colour pressed on while the wood spins, buffed with a leaf. Then given a screen-time problem.</p></li>
+   <li><span class="gubbi-craft-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11h-8l-4 4v-4H4zM8 9h8M8 12.5h5"/></svg></span><h3>A desk mate with a backstory.</h3><p>Every character has a situation: a signal, a reel, a pull request. You’ll recognise it. Your colleagues may feel personally attacked.</p></li>
+   <li><span class="gubbi-craft-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14M12 7c-2.5-4-6.5-2.5-5 0M12 7c2.5-4 6.5-2.5 5 0"/></svg></span><h3>“This is so you.” In a box.</h3><p>Story sleeve, made-by card, a handwritten gift note if you want one. For the always-late friend, the terminally online bestie, or yourself.</p></li>
   </ol>
  </div>
 </section>
 
-<section class="gang-workshop wrap" aria-labelledby="workshop-title">
- <div class="gang-workshop-card">
-  <div class="gang-workshop-images"><video autoplay muted loop playsinline preload="metadata" poster="/images/art-club-table.webp" aria-label="A lively look at making art at Gubbi Art Club"><source src="/video/art-club-hero.mp4" type="video/mp4"/></video></div>
-  <div class="gang-workshop-copy"><h2 id="workshop-title">Your hands called.<br/><em>They want in.</em></h2><p>Meet <strong>Gubbi Art Club</strong>, our other happy place. Hands-on art and craft workshops in Bengaluru, for when you’d rather make the thing yourself.</p><ul aria-label="Workshop activities"><li>Paint something</li><li>Try crochet</li><li>Make a little mess</li></ul><a class="button" href="https://gubbiartclub.com/">Explore Art Club workshops <Icon/></a><p class="gang-workshop-note">Find activities, dates and booking details at Gubbi Art Club.</p></div>
+<section class="gubbi-workshop wrap" aria-labelledby="workshop-title">
+ <div class="gubbi-workshop-card">
+  <div class="gubbi-workshop-images"><video autoplay muted loop playsinline preload="metadata" poster="/images/art-club-table.webp" aria-label="A lively look at making art at Gubbi Art Club"><source src="/video/art-club-hero.mp4" type="video/mp4"/></video></div>
+  <div class="gubbi-workshop-copy"><h2 id="workshop-title">Your hands called.<br/><em>They want in.</em></h2><p>Meet <strong>Gubbi Art Club</strong>, our other happy place. Hands-on art and craft workshops in Bengaluru, for when you’d rather make the thing yourself.</p><ul aria-label="Workshop activities"><li>Paint something</li><li>Try crochet</li><li>Make a little mess</li></ul><a class="button" href={`${site.artClub}/`}>Explore Art Club workshops <Icon/></a><p class="gubbi-workshop-note">Find activities, dates and booking details at Gubbi Art Club.</p></div>
  </div>
 </section>
 
 <section class="club-section wrap club-faq" id="doubts" aria-labelledby="doubts-title">
- <div class="club-faq-head"><h2 id="doubts-title">A few <em>doubts.</em></h2><p>No small-print energy. Here is where things stand.</p><a class="text-link" href="https://gubbiartclub.com/">Still doubting? Ask us <Icon/></a></div>
+ <div class="club-faq-head"><h2 id="doubts-title">A few <em>doubts.</em></h2><p>No small-print energy. Straight answers.</p><a class="text-link" href={`mailto:${site.email}`}>Still doubting? Write to us <Icon/></a></div>
  <div class="club-faq-list">{doubts.map(([question, answer], index)=><details name="home-doubts"><summary><span class="club-faq-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span>{question}</span><Icon name="plus"/></summary><p>{answer}</p></details>)}</div>
 </section>
 </Layout>
@@ -79,7 +82,7 @@ const heroImage = ['hero-bg.jpg', 'hero-bg.png', 'hero-bg.webp'].map(name => `/$
 <script>
 const word = document.querySelector<HTMLElement>('[data-rotate]');
 if (word && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  const words = ['gang.', 'desk.', 'bestie.', 'chaos.', 'drama.', 'city.'];
+  const words = ['desk.', 'bestie.', 'prompt.', 'vibe.', 'drama.'];
   let at = 0;
   setInterval(() => {
     word.classList.add('is-leaving');

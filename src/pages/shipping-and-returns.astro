@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+const inr = (value: number) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(value);
+---
+<Layout title="Shipping & returns — The Gubbi" description={`Shipping across India in ${site.deliveryDays}, ${inr(site.shippingFlat)} flat and free over ${inr(site.freeShippingOver)}. ${site.returnDays}-day returns and replacements for anything damaged in transit.`}>
+<article class="policy wrap">
+ <header><h1>Shipping &amp;<br/><span class="serif">returns.</span></h1><p>Short version: we ship everywhere in India, and if something goes wrong we fix it. Long version below.</p></header>
+ <section>
+  <h2>Shipping</h2>
+  <ul>
+   <li><strong>Where:</strong> anywhere in India with a PIN code. International shipping is not available yet; write to us if you want it and we will let you know when it is.</li>
+   <li><strong>Cost:</strong> {inr(site.shippingFlat)} per order. Free when your order is {inr(site.freeShippingOver)} or more.</li>
+   <li><strong>Dispatch:</strong> orders leave Bengaluru within {site.dispatchDays}. Each piece is checked and packed by hand before it goes.</li>
+   <li><strong>Delivery:</strong> usually {site.deliveryDays} after dispatch, faster within Karnataka. Remote PIN codes can take a little longer.</li>
+   <li><strong>Tracking:</strong> emailed to you the moment your parcel is picked up.</li>
+  </ul>
+ </section>
+ <section>
+  <h2>Damaged in transit</h2>
+  <p>Wood is sturdy; couriers are not always. If your piece arrives chipped, cracked or otherwise not as it should be, email <a href={`mailto:${site.email}`}>{site.email}</a> within {site.returnDays} days of delivery with a photo of the piece and the box. We send a replacement at no cost. If the character is sold out, we refund in full.</p>
+ </section>
+ <section>
+  <h2>Changed your mind</h2>
+  <p>You can return an unused piece in its original box within {site.returnDays} days of delivery. Write to us first so we can arrange the pickup; we cover the return shipping. Once it reaches us and is checked, we refund the full price to your original payment method within 5–7 business days. Original shipping charges are not refunded unless the return is because of our mistake.</p>
+  <p>Because every piece is hand-turned, small differences in grain, colour and finish are part of the object, not defects.</p>
+ </section>
+ <section>
+  <h2>Cancellations</h2>
+  <p>Cancel any time before dispatch for a full refund. After dispatch, use the return process above.</p>
+ </section>
+ <section>
+  <h2>Gifts</h2>
+  <p>Tick the gift option at checkout and we include your handwritten note and leave prices off the packing slip. Gift returns follow the same {site.returnDays}-day window and are refunded to the original buyer.</p>
+ </section>
+ <p class="policy-cta"><a class="button" href="/shop">Back to the shop <Icon/></a></p>
+</article>
+</Layout>

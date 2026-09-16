@@ -1,0 +1,17 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import Icon from '../../components/Icon.astro';
+import { products, money } from '../../data/products';
+import { site } from '../../data/site';
+const categories = ['Everyone', 'Bengaluru', 'Vibe coding', 'Kinetic', 'Desk'];
+const jsonld = [
+  { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: site.url }, { '@type': 'ListItem', position: 2, name: 'Shop', item: `${site.url}/shop` }] },
+  { '@type': 'ItemList', name: 'The Gubbi, Collection 01', itemListElement: products.map((product, index) => ({ '@type': 'ListItem', position: index + 1, url: `${site.url}/shop/${product.slug}`, name: product.name })) },
+];
+---
+<Layout title="Shop wooden desk collectibles — The Gubbi" description={`Six hand-turned wooden characters from Channapatna, ${money(Math.min(...products.map(p => p.price)))} to ${money(Math.max(...products.map(p => p.price)))}. About Bengaluru traffic, ETAs that lie, and one more prompt. Ships across India.`} jsonld={jsonld}>
+<header class="shop-hero wrap"><div><h1>Find your<br/><span class="serif">kind of weird.</span></h1><p>Small wooden characters. Suspiciously familiar personalities.<br/>Made for desks, shelves, and people with a story.</p></div><div class="shop-stamp"><img src="/brand/gubbi-flower.svg" alt="" width="65" height="65"/><span>LOCALLY INSPIRED.<br/>PERSONALLY ATTACKED.</span></div></header>
+<section class="shop-section wrap" aria-label="The collection"><div class="shop-tools"><div class="filters" aria-label="Filter the collection">{categories.map((category, index) => <button class:list={['filter', index === 0 && 'is-active']} data-filter={index === 0 ? 'all' : category} aria-pressed={index === 0}>{category}</button>)}</div><div class="shop-controls"><label class="sort-label">Sort by <select id="product-sort" aria-label="Sort the collection"><option value="collection">Collection order</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="name">Name: A–Z</option></select></label><label class="search-field" id="search"><Icon name="search"/><input type="search" id="product-search" placeholder="Find your desk mate" aria-label="Search the collection"/></label></div></div><span id="result-count" class="sr-only" role="status" aria-live="polite">6 characters. Plenty of personality.</span><div class="product-grid" id="shop-grid">{products.map((product, index) => <div data-product-tags={product.tags.join(',')} data-search={`${product.name} ${product.short} ${product.mood} ${product.tags.join(' ')}`.toLowerCase()} data-price={product.price} data-name={product.name} data-order={index}><ProductCard product={product}/></div>)}</div><div id="search-empty" class="search-empty" hidden><h2>Not in this little universe. Yet.</h2><p>Try “Bengaluru”, “desk”, or let everyone back in.</p><button class="button" data-reset-search>Show everyone <Icon/></button></div></section>
+<section class="shop-outro wrap"><div class="shop-outro-card"><div><p class="shop-outro-kicker">Don’t see your personality here?</p><h2>We’re just <span class="serif">getting started.</span></h2><p>More local stories. More tiny existential crises. Collection 02 is on the lathe.</p></div><a class="button" href="/philosophy">How a Gubbi is made <Icon/></a></div></section>
+</Layout>

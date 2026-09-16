@@ -1,9 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ProductCrop from '../components/ProductCrop.astro';
+import ProductImage from '../components/ProductImage.astro';
+import { getProduct } from '../data/products';
 import Placeholder from '../components/Placeholder.astro';
 import Print from '../components/Print.astro';
 import Flower from '../components/Flower.astro';
+import Marquee from '../components/Marquee.astro';
 import Icon from '../components/Icon.astro';
 import '../styles/story.css';
 
@@ -13,12 +15,13 @@ const phrases = ['GUBBI = SPARROW', 'NAMMA BENGALURU', 'CHIKKA GUYS, DODDA FEELI
 const stops = [
   { name: 'Gubbi Art Club', line: 'A room in Bengaluru where people come to paint, crochet and make a beautiful little mess.' },
   { name: 'One joke too many', line: 'Somebody said “Silk Board is a state of mind” and nobody could stop laughing. Or leave.' },
-  { name: 'Six guys on paper', line: 'Traffic, doomscroll, the 2am deploy. The concept sheet, drawn before anyone said “gombe”.' },
-  { name: 'Prototypes', line: 'Turning, lac, learning what the wood wants to be. This is where we are.', here: true },
-  { name: 'First batch', line: 'Makers named, materials confirmed, real photographs. Not before.' },
+  { name: 'Six guys on paper', line: 'Traffic, tokens, the eternal ETA. Drawn before anyone said “gombe”.' },
+  { name: 'Channapatna', line: 'Three visits, a lot of chai, and learning what the wood wants to be. The makers fixed our drawings.' },
+  { name: 'Collection 01', line: 'Six characters, hand-turned, boxed, and on this site.', here: true },
+  { name: 'Collection 02', line: 'On the lathe. Same hands, new stories.', next: true },
 ];
 ---
-<Layout title="Our story — gubbi gang" description="Gubbi means sparrow. The story of a small bird, a big city, and six wooden guys who refuse to get a real job.">
+<Layout title="Our story: a sparrow, a city, six wooden guys — The Gubbi" description="Gubbi means sparrow in Kannada. The story of a small bird, a loud city, an art club, and six hand-turned wooden characters who refuse to get a real job." type="article">
 <section class="story-hero">
  <div class="wrap story-hero-inner">
   <div class="story-hero-copy">
@@ -26,16 +29,16 @@ const stops = [
    <p class="story-hero-lede">Small doll, big city. Gubbi means sparrow in Kannada. This is the story of a small bird, a very loud city, and six wooden guys who refuse to get a real job.</p>
    <a class="text-link" href="#sparrow">Scroll, boss <Icon/></a>
   </div>
-  <div class="story-fan" aria-label="Three of the gang, as taped prints">
-   <Print tilt={-7} tape="left" class="story-fan-a"><ProductCrop position="p-1" alt="Traffic Kumar, an auto with one tiny passenger" eager/></Print>
-   <Print tilt={4} tape="top" class="story-fan-b"><ProductCrop position="p-6" alt="Namma Metro Sprint, a commuter running for the door" eager/></Print>
-   <Print tilt={-2} tape="right" class="story-fan-c"><ProductCrop position="p-2" alt="Doomscroll Buddy holding a phone that says just one more scroll" eager/></Print>
+  <div class="story-fan" aria-label="Three of the characters, as taped prints">
+   <Print tilt={-7} tape="left" class="story-fan-a"><ProductImage product={getProduct('traffic-kumar')!} sizes="(max-width: 760px) 60vw, 360px" eager/></Print>
+   <Print tilt={4} tape="top" class="story-fan-b"><ProductImage product={getProduct('yaavdu-dice')!} sizes="(max-width: 760px) 60vw, 360px" eager/></Print>
+   <Print tilt={-2} tape="right" class="story-fan-c"><ProductImage product={getProduct('i-got-it-bruh')!} sizes="(max-width: 760px) 60vw, 360px" eager/></Print>
    <span class="story-stamp" aria-hidden="true"><Flower/><span>Made<br/>in traffic</span></span>
   </div>
  </div>
 </section>
 
-<div class="club-marquee"><div class="club-ticker" aria-label={phrases.join('. ')}><div class="club-marquee-track" aria-hidden="true">{[0,1].map(()=><div class="club-marquee-group">{phrases.map(phrase=><><span>{phrase}</span><Flower/></>)}</div>)}</div></div></div>
+<Marquee phrases={phrases}/>
 
 <section class="story-sparrow" id="sparrow">
  <div class="wrap story-sparrow-inner">
@@ -54,9 +57,9 @@ const stops = [
 
 <section class="story-route" aria-labelledby="route-title">
  <div class="wrap">
-  <header class="story-route-head"><h2 id="route-title">How we got <em>here.</em></h2><p>The route so far, drawn like a metro map because that’s how we think in this city. Mind the gap between concept and shelf.</p></header>
+  <header class="story-route-head"><h2 id="route-title">How we got <em>here.</em></h2><p>The route so far, drawn like a metro map because that’s how we think in this city. Mind the gap.</p></header>
   <ol class="story-line">
-   {stops.map(stop=><li class:list={[stop.here && 'is-here']}><span class="story-dot" aria-hidden="true"></span><h3>{stop.name}{stop.here && <small>You are here</small>}</h3><p>{stop.line}</p></li>)}
+   {stops.map(stop=><li class:list={[stop.here && 'is-here', stop.next && 'is-next']}><span class="story-dot" aria-hidden="true"></span><h3>{stop.name}{stop.here && <small>You are here</small>}{stop.next && <small>Next stop</small>}</h3><p>{stop.line}</p></li>)}
   </ol>
  </div>
 </section>
@@ -69,8 +72,8 @@ const stops = [
   </div>
   <div class="story-collage">
    <div class="story-collage-col">
-    <Print tilt={-3} tape="top" caption="Vehicles go round. So do our hopes."><ProductCrop position="p-3" alt="Silk Board Forever Loop, cars circling a roundabout"/></Print>
-    <Print tilt={4} tape="top" caption="Helpful. Hallucinates sometimes."><ProductCrop position="p-5" alt="Copilot Confusion, an engineer and a very confident robot"/></Print>
+    <Print tilt={-3} tape="top" caption="Same jam. Different day."><ProductImage product={getProduct('silk-board-forever')!} sizes="(max-width: 760px) 92vw, 420px"/></Print>
+    <Print tilt={4} tape="top" caption="Ship it. Refactor later."><ProductImage product={getProduct('i-got-it-bruh')!} sizes="(max-width: 760px) 92vw, 420px"/></Print>
    </div>
    <div class="story-collage-col">
     <Print tilt={2} tape="right" caption="Wrong time. Correct coffee." class="print--portrait"><Placeholder name="filter-coffee" portrait/></Print>
@@ -95,13 +98,13 @@ const stops = [
 <section class="story-craft" aria-labelledby="craft-title">
  <div class="wrap story-craft-inner">
   <div class="story-craft-photo">
-   <Print tilt={-4} tape="top" caption="DevOps, but emotionally louder."><ProductCrop position="p-4" alt="Workflow Spinner 2AM, a spinner with retry, debug and blame webhook"/></Print>
+   <Print tilt={-4} tape="top" caption="Spin before shipping."><ProductImage product={getProduct('token-maxxer')!} sizes="(max-width: 760px) 92vw, 420px"/></Print>
    <Print tilt={5} tape="left" class="story-craft-photo-b" caption="Colour goes on while the wood spins."><Placeholder name="lac-sticks"/></Print>
   </div>
   <div class="story-craft-copy">
    <h2>Keep the craft.<br/>Change the <em>conversation.</em></h2>
-   <p>We’re starting with Channapatna’s turned-wood tradition — lathe, lac, a leaf for polish, and hands that have been doing this for generations. The gombe on your ajji’s shelf came from there. Ours will too, we hope, with slightly more existential dread on the base.</p>
-   <p>The six you see are concepts. Next comes time with makers, prototypes, and learning what the material actually wants to be. Names, materials and real photographs get published when they’re real.</p>
+   <p>Every Gubbi comes out of Channapatna’s turned-wood tradition — lathe, lac, a leaf for polish, and hands that have been doing this for generations. The gombe on your ajji’s shelf came from there. Ours do too, with slightly more existential dread on the base.</p>
+   <p>The makers fixed our drawings. Corners became curves, colours became whatever lac was willing to do, and the characters got better for it. Each piece still comes off the lathe one at a time, so no two are quite the same.</p>
    <a class="button" href="/philosophy">How a gombe is made <Icon/></a>
   </div>
  </div>
@@ -110,8 +113,14 @@ const stops = [
 <section class="story-ways wrap" aria-labelledby="ways-title">
  <h2 id="ways-title">One gubbi.<br/><em>Two ways in.</em></h2>
  <div class="story-ways-grid">
-  <a class="story-way story-way--shop" href="/shop"><Flower/><h3>Take a little guy home.</h3><p>Wooden collectibles with local stories and very distinct personalities. All of them unemployed.</p><span>Meet the gang <Icon/></span></a>
-  <a class="story-way story-way--club" href="https://gubbiartclub.com"><Flower/><h3>Make a little thing yourself.</h3><p>Art workshops for curious hands. Same spirit, with more paint on your clothes.</p><span>Gubbi Art Club <Icon/></span></a>
+  <a class="story-way story-way--shop" href="/shop">
+   <div class="story-way-copy"><span class="story-way-kicker">The shop</span><h3>Take a little guy home.</h3><p>Hand-turned collectibles with local stories and very distinct personalities. All of them unemployed.</p><span class="story-way-link">Meet everyone <Icon/></span></div>
+   <Print tilt={6} tape="top" class="story-way-print"><ProductImage product={getProduct('bartha-idini')!} sizes="(max-width: 760px) 92vw, 420px"/></Print>
+  </a>
+  <a class="story-way story-way--club" href="https://gubbiartclub.com">
+   <div class="story-way-copy"><span class="story-way-kicker">Gubbi Art Club</span><h3>Make a little thing yourself.</h3><p>Art and craft workshops in Bengaluru for curious hands. Same spirit, with more paint on your clothes.</p><span class="story-way-link">See the workshops <Icon/></span></div>
+   <Print tilt={-5} tape="left" class="story-way-print"><img src="/images/art-club-table.webp" alt="A workshop table at Gubbi Art Club, mid-session" width="1200" height="900" loading="lazy" decoding="async"/></Print>
+  </a>
  </div>
 </section>
 </Layout>
