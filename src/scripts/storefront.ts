@@ -14,12 +14,72 @@ function readBag(): BagItem[] {
 }
 let items = readBag();
 let toastTimer: ReturnType<typeof setTimeout>;
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 function say(message: string) {
   const toast = $('#toast')!;
   clearTimeout(toastTimer);
+  toast.className = 'toast is-visible';
   toast.textContent = message;
-  toast.classList.add('is-visible');
   toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 3200);
+}
+// A richer toast for additions: thumbnail, name and a way into the bag.
+function celebrate(product: (typeof products)[number], count: number, from: HTMLElement) {
+  const toast = $('#toast')!;
+  clearTimeout(toastTimer);
+  toast.className = 'toast toast--bag';
+  toast.replaceChildren();
+  const thumb = document.createElement('div');
+  thumb.className = `product-crop ${product.position}`;
+  thumb.innerHTML = '<img src="/Toy.png" width="1536" height="1024" alt=""/>';
+  const copy = document.createElement('div');
+  copy.className = 'toast-copy';
+  const label = document.createElement('span');
+  label.textContent = count > 1 ? `In your bag ×${count}` : 'In your bag';
+  const name = document.createElement('strong');
+  name.textContent = product.name;
+  copy.append(label, name);
+  const open = document.createElement('button');
+  open.type = 'button';
+  open.className = 'toast-open';
+  open.setAttribute('data-open-bag', '');
+  open.textContent = 'View bag';
+  toast.append(thumb, copy, open);
+  void toast.offsetWidth;
+  toast.classList.add('is-visible');
+  toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 4200);
+
+  // The bag button acknowledges the arrival.
+  const bagButton = $('[data-open-bag].bag-button');
+  bagButton?.classList.remove('is-bumped');
+  void bagButton?.offsetWidth;
+  bagButton?.classList.add('is-bumped');
+  from.classList.remove('is-added');
+  void from.offsetWidth;
+  from.classList.add('is-added');
+  if (reducedMotion.matches) return;
+
+  // A small burst of flowers from the pressed button.
+  const rect = from.getBoundingClientRect();
+  const burst = document.createElement('div');
+  burst.className = 'petal-burst';
+  burst.style.left = `${rect.left + rect.width / 2}px`;
+  burst.style.top = `${rect.top + rect.height / 2}px`;
+  const colours = ['var(--yellow)', 'var(--orange)', 'var(--blue)', 'var(--paper)', 'var(--green-leaf)'];
+  for (let i = 0; i < 14; i++) {
+    const petal = document.createElement('span');
+    const angle = (Math.PI * 2 * i) / 14 + (Math.random() - .5) * .6;
+    const distance = 70 + Math.random() * 90;
+    petal.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
+    petal.style.setProperty('--y', `${Math.sin(angle) * distance - 40}px`);
+    petal.style.setProperty('--r', `${Math.random() * 540 - 270}deg`);
+    petal.style.setProperty('--s', `${.5 + Math.random() * .7}`);
+    petal.style.setProperty('--d', `${Math.random() * 120}ms`);
+    petal.style.color = colours[i % colours.length];
+    petal.innerHTML = '<svg viewBox="0 0 60 60" aria-hidden="true"><g fill="currentColor"><ellipse cx="30" cy="30" rx="11" ry="29"/><ellipse cx="30" cy="30" rx="11" ry="29" transform="rotate(60 30 30)"/><ellipse cx="30" cy="30" rx="11" ry="29" transform="rotate(120 30 30)"/></g><circle cx="30" cy="30" r="6" fill="var(--ink)"/></svg>';
+    burst.append(petal);
+  }
+  document.body.append(burst);
+  setTimeout(() => burst.remove(), 1400);
 }
 function persist() {
   try { localStorage.setItem(storageKey, JSON.stringify(items)); }
@@ -83,7 +143,7 @@ document.addEventListener('click', event => {
     if (existing) existing.quantity = Math.min(10, existing.quantity + amount);
     else items.push({ slug: product.slug, quantity: amount });
     persist();
-    say(`${product.name} is in your bag.`);
+    celebrate(product, items.find(item => item.slug === product.slug)!.quantity, add);
     if (add.hasAttribute('data-use-quantity')) bag.showModal();
   }
   const remove = target.closest<HTMLElement>('[data-remove]');

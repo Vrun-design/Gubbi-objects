@@ -14,12 +14,42 @@ try {
  await page.screenshot({ path: out + 'desktop.png', fullPage: true });
  await page.screenshot({ path: out + 'desktop-hero.png' });
  assert.equal(await page.locator('img[src*="sparrow"], img[src*="wordmark"], [lang="kn"]').count(), 0);
- await page.locator('[data-vote-pick="doomscroll-buddy"]').click();
- assert.equal(await page.locator('[data-vote-pick="doomscroll-buddy"]').getAttribute('aria-pressed'), 'true');
- assert.match(await page.locator('[data-vote-note]').textContent(), /Doomscroll Buddy gets your vote/);
- await page.screenshot({ path: out + 'vote.png' });
- await page.reload();
- assert.equal(await page.locator('[data-vote-pick="doomscroll-buddy"]').getAttribute('aria-pressed'), 'true');
+ assert.equal(await page.locator('[data-vote]').count(), 0);
+ assert.equal(await page.locator('.gang-feature [data-add="silk-board-forever-loop"]').count(), 1);
+ const showcase = page.locator('[data-showcase]');
+ await showcase.scrollIntoViewIfNeeded();
+ assert.equal(await showcase.locator('[data-slide]:not([inert])').count(), 1);
+ assert.equal(await showcase.locator('[data-play]').textContent(), 'Play');
+ await showcase.locator('[data-prev]').click();
+ assert.match(await showcase.locator('[data-slide]:not([inert]) h3').textContent(), /Namma Metro Sprint/);
+ await showcase.locator('[data-next]').click();
+ assert.match(await showcase.locator('[data-slide]:not([inert]) h3').textContent(), /Silk Board/);
+ for (const button of await showcase.locator('[data-select]').all()) {
+  await button.click();
+  assert.equal(await button.getAttribute('aria-pressed'), 'true');
+  const slide = showcase.locator('[data-slide]:not([inert])');
+  assert.equal(await slide.locator('a').getAttribute('href'), '/gang/' + await slide.locator('[data-add]').getAttribute('data-add'));
+ }
+ await showcase.locator('[data-select="0"]').click();
+ await showcase.screenshot({ path: out + 'showcase-desktop.png' });
+ await page.setViewportSize({ width: 390, height: 844 });
+ await showcase.screenshot({ path: out + 'showcase-mobile.png' });
+ await page.setViewportSize({ width: 1440, height: 1000 });
+ const autoplay = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+ await autoplay.goto(base);
+ await autoplay.locator('[data-showcase]').scrollIntoViewIfNeeded();
+ await autoplay.waitForFunction(() => document.querySelector('[data-current]')?.textContent === '02', { timeout: 9000 });
+ await autoplay.locator('[data-play]').click();
+ await autoplay.mouse.move(0, 0);
+ await autoplay.waitForTimeout(6200);
+ assert.equal(await autoplay.locator('[data-current]').textContent(), '02');
+ await autoplay.close();
+
+ assert.equal(await page.getByRole('link', { name: 'Explore Art Club workshops' }).getAttribute('href'), 'https://gubbiartclub.com/');
+ await page.locator('.gang-workshop').scrollIntoViewIfNeeded();
+ assert.equal(await page.locator('.gang-workshop figure').count(), 0);
+ assert.equal(await page.locator('.gang-workshop video').getAttribute('poster'), '/images/art-club-table.webp');
+ assert.equal(await page.locator('.gang-workshop video source').getAttribute('src'), '/video/art-club-hero.mp4');
  assert.equal(await page.locator('body').innerText().then(text => /\bobjects\b/i.test(text)), false);
  await page.goto(base + '/shop');
  await page.getByRole('button', { name: 'Tech worker', exact: true }).click();
@@ -32,6 +62,7 @@ try {
  assert.match(await page.locator('#shop-grid>div').first().innerText(), /Doomscroll Buddy/);
  await page.screenshot({ path: out + 'shop-desktop.png', fullPage: true });
  await page.goto(base + '/gang/traffic-kumar');
+ assert.match(await page.locator('.gang-personality h2').textContent(), /Five minutes, boss/);
  await page.getByRole('button', { name: 'A closer look', exact: true }).click();
  assert.equal(await page.locator('[data-gallery] .product-crop--detail').count(), 1);
  await page.getByRole('button', { name: 'The object', exact: true }).click();
@@ -82,9 +113,9 @@ try {
  assert.equal(await page.locator('#mobile-nav').isVisible(), false);
  await page.goto(base + '/shop');
  await page.locator('[data-add]').first().click();
- await page.locator('[data-open-bag]').click();
+ await page.locator('.bag-button').click();
  await page.locator('[data-remove]').click();
  assert.equal(await page.locator('#bag-empty').isVisible(), true);
  assert.deepEqual(errors, []);
- console.log('PASS: all routes at 1440/768/390/360px; branding, the first-batch vote, search, filters, sorting, gallery, bag, quantities, persistence, corrupt storage, checkout, and mobile navigation.');
+ console.log('PASS: all routes at 1440/768/390/360px; branding, shopping feature, workshop images/link, character story, search, filters, sorting, gallery, bag, quantities, persistence, corrupt storage, checkout, and mobile navigation.');
 } finally { await browser.close(); }

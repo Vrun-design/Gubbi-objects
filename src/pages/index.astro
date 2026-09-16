@@ -1,19 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ProductCard from '../components/ProductCard.astro';
-import ProductCrop from '../components/ProductCrop.astro';
+import ProductShowcase from '../components/ProductShowcase.astro';
 import Flower from '../components/Flower.astro';
 import Icon from '../components/Icon.astro';
 import { products } from '../data/products';
 import fs from 'node:fs';
+import '../styles/character-sections.css';
 
 const phrases = ['SWALPA ADJUST MAADI', 'ONE TEA BEKU', 'SILK BOARD IS A STATE OF MIND', 'METER HAAKI BOSS', 'OLD CRAFT. NEW MISCHIEF.', 'SIKKAPATTE CHENNAGIDE'];
-
-const facts = [
-  { title: 'Lathe-turned, lac-coloured.', line: 'The Channapatna way: colour pressed on while the wood is still spinning. No paint, no brush, no spray can.' },
-  { title: 'Palm-size.', line: 'Smaller than your water bottle. Sits on a monitor stand without fighting the second screen.' },
-  { title: 'One guy, one problem.', line: 'Each object is a person with a name, a job and a situation he is not getting out of. Very good company while you don’t either.' },
-];
 
 const doubts = [
   ['Boss, can I actually buy these?', 'Not yet. This is a collection preview. Look around, build a bag, poke at checkout — but no order is placed and no payment is taken.'],
@@ -27,7 +22,6 @@ const doubts = [
   ['Innu jaasti bartha? More coming?', 'That’s the plan. These six are the starting concepts. More local stories and uncomfortably familiar personalities follow as we work through prototypes.'],
 ];
 
-const spotlight = products.find(product => product.slug === 'silk-board-forever-loop')!;
 
 // Words that complete “make room for the ___”. The first one is the name.
 const rotating = ['gang.', 'desk.', 'bestie.', 'chaos.', 'drama.', 'city.'];
@@ -53,85 +47,36 @@ const heroImage = ['hero-bg.jpg', 'hero-bg.png', 'hero-bg.webp'].map(name => `/$
  <div class="product-grid">{products.map(product=><ProductCard product={product}/>)}</div>
 </section>
 
-<section class="club-spotlight" aria-labelledby="spotlight-title">
- <div class="wrap club-spotlight-inner">
-  <div class="club-spotlight-photo"><ProductCrop position={spotlight.position} alt={`${spotlight.name} object concept`}/><span class="club-spotlight-stamp"><Flower/><span>Turn<br/>me</span></span></div>
-  <div class="club-spotlight-copy">
-   <h2 id="spotlight-title">{spotlight.name}</h2>
-   <p class="club-spotlight-meta">Object {spotlight.number} · {spotlight.tags.join(' · ')} · {spotlight.colour}</p>
-   <p class="club-spotlight-short">{spotlight.short}</p>
-   <p class="club-spotlight-story">{spotlight.story}</p>
-   <p class="club-spotlight-price"><strong>₹{spotlight.price.toLocaleString('en-IN')}</strong><span>illustrative price</span></p>
-   <div class="club-spotlight-actions"><button class="button" type="button" data-add={spotlight.slug}>Add to bag <Icon name="bag"/></button><a class="text-link" href={`/gang/${spotlight.slug}`}>Read his whole deal <Icon/></a></div>
-  </div>
+<ProductShowcase/>
+
+<section class="gang-craft" aria-labelledby="deal-title">
+ <div class="wrap">
+  <header class="gang-craft-heading">
+   <h2 id="deal-title">Chikka things.<br/><em>Dodda personality.</em></h2>
+   <div><p>Little collectibles. Big Bengaluru energy. A bit of the city you can actually make room for.</p><a class="text-link" href="/philosophy">Get to know the craft <Icon/></a></div>
+  </header>
+  <ol class="gang-craft-notes">
+   <li><span class="gang-craft-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="3"/><path d="M9.5 8.5c-1.5 3-3 5.5-3 8.5h11c0-3-1.5-5.5-3-8.5M7.5 13.5h9M5.5 20.5h13"/></svg></span><h3>Old craft. New mischief.</h3><p>Inspired by Channapatna’s turned wood and lac colour. Reimagined around traffic, screen time and the very last deployment.</p></li>
+   <li><span class="gang-craft-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11h-8l-4 4v-4H4zM8 9h8M8 12.5h5"/></svg></span><h3>A desk mate with a backstory.</h3><p>Every character has a situation. You’ll recognise it. Your colleagues may feel personally attacked.</p></li>
+   <li><span class="gang-craft-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14M12 7c-2.5-4-6.5-2.5-5 0M12 7c2.5-4 6.5-2.5 5 0"/></svg></span><h3>“This is so you.” In a box.</h3><p>For the always-late friend. The terminally online bestie. Or yourself. Especially yourself.</p></li>
+  </ol>
  </div>
 </section>
 
-<section class="club-deal" aria-labelledby="deal-title">
- <div class="wrap club-deal-inner">
-  <div class="club-deal-copy">
-   <h2 id="deal-title">Gombe alla, boss.<br/><em>Idu gang.</em></h2>
-   <p class="club-deal-lede">Not toys. Wooden collectibles, turned and lacquered the Channapatna way, about the Bengaluru you actually live in.</p>
-   <a class="text-link" href="/philosophy">The whole craft story <Icon/></a>
-  </div>
-  <div>
-   <ul class="club-deal-facts">{facts.map(fact=><li><h3>{fact.title}</h3><p>{fact.line}</p></li>)}</ul>
-   <p class="club-deal-note">Still in prototypes. Makers, materials and final specifications get named with the first approved batch — not before.</p>
-  </div>
+<section class="gang-workshop wrap" aria-labelledby="workshop-title">
+ <div class="gang-workshop-card">
+  <div class="gang-workshop-images"><video autoplay muted loop playsinline preload="metadata" poster="/images/art-club-table.webp" aria-label="A lively look at making art at Gubbi Art Club"><source src="/video/art-club-hero.mp4" type="video/mp4"/></video></div>
+  <div class="gang-workshop-copy"><h2 id="workshop-title">Your hands called.<br/><em>They want in.</em></h2><p>Meet <strong>Gubbi Art Club</strong>, our other happy place. Hands-on art and craft workshops in Bengaluru, for when you’d rather make the thing yourself.</p><ul aria-label="Workshop activities"><li>Paint something</li><li>Try crochet</li><li>Make a little mess</li></ul><a class="button" href="https://gubbiartclub.com/">Explore Art Club workshops <Icon/></a><p class="gang-workshop-note">Find activities, dates and booking details at Gubbi Art Club.</p></div>
  </div>
-</section>
-
-<section class="club-vote">
- <div class="wrap club-vote-inner">
-  <div class="club-vote-copy">
-   <h2>Who should we<br/>make <em>first?</em></h2>
-   <p>First batch, first dibs. Six concepts, one run. Pick your guy — loudly, if you like.</p>
-   <p class="club-vote-note" data-vote-note>Counted on this device for now. Real voting comes with the real batch.</p>
-  </div>
-  <div class="club-vote-grid" data-vote>
-   {products.map(product=><button type="button" data-vote-pick={product.slug} aria-pressed="false"><span class="club-vote-n">{product.number}</span><span class="club-vote-name">{product.name}</span><span class="club-vote-mood">{product.mood}</span></button>)}
-  </div>
- </div>
-</section>
-
-<section class="club-section wrap club-other-world">
- <div><h2>Rather make things<br/><em>with your own hands?</em></h2><p>Same gubbi, different kind of time-pass. Paint, crochet and make a beautiful little mess at Gubbi Art Club.</p><a class="text-link" href="https://gubbiartclub.com">Come over to the Art Club <Icon/></a></div>
- <a href="https://gubbiartclub.com" class="club-invitation"><Flower/><h3>Less screen.<br/>More mess.</h3><span>Find your workshop <Icon/></span></a>
 </section>
 
 <section class="club-section wrap club-faq" id="doubts" aria-labelledby="doubts-title">
- <div class="club-faq-head"><h2 id="doubts-title">A few <em>doubts.</em></h2><p>No small-print energy. Here is where things stand.</p></div>
- <div class="club-faq-list">{doubts.map(([question, answer])=><details><summary>{question}<Icon name="plus"/></summary><p>{answer}</p></details>)}</div>
+ <div class="club-faq-head"><h2 id="doubts-title">A few <em>doubts.</em></h2><p>No small-print energy. Here is where things stand.</p><a class="text-link" href="https://gubbiartclub.com/">Still doubting? Ask us <Icon/></a></div>
+ <div class="club-faq-list">{doubts.map(([question, answer], index)=><details name="home-doubts"><summary><span class="club-faq-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span>{question}</span><Icon name="plus"/></summary><p>{answer}</p></details>)}</div>
 </section>
 </Layout>
 
 <script>
-import { products } from '../data/products';
-const vote = document.querySelector<HTMLElement>('[data-vote]');
-if (vote) {
-  const note = document.querySelector<HTMLElement>('[data-vote-note]')!;
-  const key = 'gubbi-vote';
-  const paint = (slug: string | null) => {
-    vote.querySelectorAll<HTMLButtonElement>('[data-vote-pick]').forEach(button => {
-      button.setAttribute('aria-pressed', String(button.dataset.votePick === slug));
-    });
-    if (slug) {
-      const name = products.find(item => item.slug === slug)?.name ?? slug;
-      note.textContent = `Noted. ${name} gets your vote. Tap another to change your mind, it’s allowed.`;
-    }
-  };
-  let saved: string | null = null;
-  try { saved = localStorage.getItem(key); } catch {}
-  paint(saved);
-  vote.addEventListener('click', event => {
-    const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-vote-pick]');
-    if (!button) return;
-    const slug = button.dataset.votePick!;
-    try { localStorage.setItem(key, slug); } catch {}
-    paint(slug);
-  });
-}
-
 const word = document.querySelector<HTMLElement>('[data-rotate]');
 if (word && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const words = ['gang.', 'desk.', 'bestie.', 'chaos.', 'drama.', 'city.'];
