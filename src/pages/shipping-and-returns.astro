@@ -4,7 +4,7 @@ import Icon from '../components/Icon.astro';
 import { site } from '../data/site';
 const inr = (value: number) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(value);
 ---
-<Layout title="Shipping & returns — The Gubbi" description={`Shipping across India in ${site.deliveryDays}, ${inr(site.shippingFlat)} flat and free over ${inr(site.freeShippingOver)}. ${site.returnDays}-day returns and replacements for anything damaged in transit.`}>
+<Layout title="Shipping & returns | The Gubbi" description={`Shipping across India in ${site.deliveryDays}, ${inr(site.shippingFlat)} flat and free over ${inr(site.freeShippingOver)}. ${site.returnDays}-day returns and replacements for anything damaged in transit.`}>
 <article class="policy wrap">
  <header><h1>Shipping &amp;<br/><span class="serif">returns.</span></h1><p>Short version: we ship everywhere in India, and if something goes wrong we fix it. Long version below.</p></header>
  <section>
