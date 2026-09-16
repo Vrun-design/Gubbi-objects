@@ -1,11 +1,119 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ProductCrop from '../components/ProductCrop.astro';
+import Placeholder from '../components/Placeholder.astro';
+import Print from '../components/Print.astro';
+import Flower from '../components/Flower.astro';
 import Icon from '../components/Icon.astro';
+import '../styles/craft.css';
+
+// The traditional Channapatna method, as it is practised. What our own first
+// batch uses exactly gets confirmed with the makers, not here.
+const steps = [
+  { title: 'Aale mara', line: 'Ivory wood. Soft, pale, close-grained, and it takes colour like nothing else. Seasoned for months before anyone touches it.', photo: 'wood-log', tilt: -3, tape: 'top' },
+  { title: 'Cut to size', line: 'Sawn into blanks roughly the shape of what they will become. A Traffic Kumar starts life as a very boring cylinder.', photo: 'blanks', tilt: 2, tape: 'right' },
+  { title: 'On the lathe', line: 'The blank spins, the chisel leans in, and a shape appears in minutes. Learning to do it that fast takes decades.', photo: 'lathe-turning', tilt: -2, tape: 'left' },
+  { title: 'Lac, while it spins', line: 'Colour is a stick of lac pressed against the turning wood. Friction melts it on. No paint, no brush, no spray can.', photo: 'lac-sticks', tilt: 3, tape: 'top' },
+  { title: 'Leaf polish', line: 'Buffed with a screwpine leaf until it shines. That is the whole finish. Your ajji’s gombe still has it.', photo: 'leaf-polish', tilt: -4, tape: 'right' },
+];
+
+const wedges = ['var(--yellow)', 'var(--orange)', 'var(--blue)', 'var(--green-leaf)', 'var(--yellow-soft)', 'var(--orange-tint)'];
+
+const real = ['Gubbi Art Club, a real room in Bengaluru', 'Six concepts, drawn and named', 'The jokes, unfortunately', 'The Channapatna tradition we are starting from', 'This preview site, bag and all'];
+const notYet = ['Maker names and partners', 'Final materials and finishes', 'Real product photographs', 'Prices that are not illustrative', 'Nest boxes you can count', 'Shipping, returns, delivery eshtu days'];
 ---
-<Layout title="Old craft. New conversations. — The Gubbi">
-<header class="philosophy-hero wrap"><h1>Serious about craft.<br/><span class="serif">Less so about ourselves.</span></h1><p>A few things we want every Gubbi object to stand for.</p></header>
-<section class="principles wrap"><article><span>THE SUBJECT</span><h2>Specific is <span class="serif">special.</span></h2><p>“Nice object” is fine. “That is literally you” is better. We start with a recognisable feeling, a local ritual, or a joke that has lived rent-free in our heads for far too long.</p></article><article><span>THE MATERIAL</span><h2>Let wood <span class="serif">be wood.</span></h2><p>Our starting point is Channapatna’s turned-wood craft. The final shapes need to work with the maker and the material. A concept is an invitation to prototype, not a promise to manufacture the impossible.</p></article><article><span>THE INTENTION</span><h2>Keep it <span class="serif">around.</span></h2><p>We want things you move from one desk to the next. Objects with a story you remember, a surface you want to touch, and a place in the room long after the joke first lands.</p></article><article><span>THE PROMISE</span><h2>Show the <span class="serif">real thing.</span></h2><p>Real makers. Real materials. Real product photographs. We’re not there yet, and we’ll say so. The collection you see today is a preview of where we’re headed.</p></article></section>
-<section class="craft-interlude"><div class="wrap"><ProductCrop position="p-4" alt="Workflow Spinner 2AM, turned wood and colour in a playful object concept"/><div><h2>Old hands.<br/>New <span class="serif">mischief.</span></h2><p>The ambition is a collaboration: contemporary ideas shaped by people who understand the craft. Production partners and process stories will appear here as the first batch takes shape.</p><a href="/shop" class="button button--light">Explore the concepts <Icon/></a></div></div></section>
-<section class="nest-note wrap"><img src="/brand/gubbi-flower.svg" alt="" width="100" height="100"/><div><h2>A little room for <span class="serif">the sparrow.</span></h2><p>Our plan is for every object sold to help put up a sparrow nest box in Bengaluru. We’ll publish the partner, the process and the evidence before making that promise part of a purchase. No counter until there’s something real to count.</p><a href="/story" class="text-link">Why the sparrow matters to us <Icon/></a></div></section>
+<Layout title="The craft — gubbi gang" description="Old craft, new mischief. How a Channapatna gombe is made, and what every gubbi gang object has to stand for.">
+<section class="craft-hero">
+ <div class="wrap craft-hero-inner">
+  <div class="craft-hero-copy">
+   <h1>Old craft.<br/><em>New</em> mischief.</h1>
+   <p class="craft-hero-lede">Channapatna has been turning wood and pressing colour onto it for generations. We turned up with jokes about traffic. This page is how those two things meet, and what we promise while they do.</p>
+   <a class="text-link" href="#how">How a gombe is born <Icon/></a>
+  </div>
+  <div class="craft-disc" aria-hidden="true">
+   <div class="craft-disc-ring">
+    <div class="craft-disc-face" style={`--w1:${wedges[0]};--w2:${wedges[1]};--w3:${wedges[2]};--w4:${wedges[3]};--w5:${wedges[4]};--w6:${wedges[5]}`}></div>
+    <div class="craft-disc-hub"><Flower/></div>
+   </div>
+   <span class="craft-disc-note">Always turning. Scroll to speed it up.<br/>Like the real thing, minus the shavings.</span>
+  </div>
+ </div>
+</section>
+
+<section class="craft-how" id="how" aria-labelledby="how-title">
+ <div class="wrap">
+  <header class="craft-how-head"><h2 id="how-title">How a gombe <em>is born.</em></h2><p>The Channapatna way, in five steps and one leaf. This is the tradition we are starting from; exactly what our first batch uses gets confirmed with the makers, not on a web page.</p></header>
+ </div>
+ <ol class="craft-steps wrap">
+  {steps.map((step, index)=><li><Print tilt={step.tilt} tape={step.tape as 'top' | 'left' | 'right'}><Placeholder name={step.photo}/></Print><div class="craft-step-copy"><span class="craft-step-n" aria-hidden="true">{index + 1}</span><h3>{step.title}</h3><p>{step.line}</p></div></li>)}
+ </ol>
+</section>
+
+<section class="craft-rules" aria-label="What every object has to stand for">
+ <article class="craft-rule craft-rule--paper">
+  <div class="wrap craft-rule-inner">
+   <div class="craft-rule-copy"><h2>Specific is <em>special.</em></h2><p>“Nice object” is fine. “That is literally you” is better. Every one of the gang starts with a recognisable feeling, a local ritual, or a joke that has lived rent-free in our heads for far too long. If it doesn’t make one particular person in your life go “ayyo”, it doesn’t get made.</p></div>
+   <div class="craft-rule-photo"><Print tilt={4} tape="top" caption="Pair programming or existential crisis?"><ProductCrop position="p-5" alt="Copilot Confusion, an engineer and a very confident robot"/></Print></div>
+  </div>
+ </article>
+ <article class="craft-rule craft-rule--green">
+  <div class="wrap craft-rule-inner craft-rule-inner--flip">
+   <div class="craft-rule-copy"><h2>Let wood <em>be wood.</em></h2><p>The lathe decides a lot. Round things are easy, sharp corners are not, and colour behaves the way lac wants it to. So the final shapes get worked out with the maker and the material, not forced from a drawing. A concept is an invitation to prototype, not a promise to manufacture the impossible.</p></div>
+   <div class="craft-rule-photo"><Print tilt={-3} tape="left" caption="An auto, one passenger, and enough optimism to take the flyover."><ProductCrop position="p-1" alt="Traffic Kumar, an auto with one tiny passenger"/></Print><span class="craft-stamp" aria-hidden="true"><Flower/><span>Lathe<br/>decides</span></span></div>
+  </div>
+ </article>
+ <article class="craft-rule craft-rule--paper">
+  <div class="wrap craft-rule-inner">
+   <div class="craft-rule-copy"><h2>Keep it <em>around.</em></h2><p>We want things you move from one desk to the next job, one flat to the next. A story you remember, a surface you want to touch, and a place in the room long after the joke first lands. Nothing here is designed to be unboxed once and forgotten.</p></div>
+   <div class="craft-rule-photo craft-rule-photo--portrait"><Print tilt={2} tape="right" caption="Third desk. Same guy."><Placeholder name="desk-corner" portrait/></Print></div>
+  </div>
+ </article>
+ <article class="craft-rule craft-rule--deep">
+  <div class="wrap craft-rule-inner craft-rule-inner--flip">
+   <div class="craft-rule-copy"><h2>Show the <em>real thing.</em></h2><p>Real makers. Real materials. Real product photographs. We are not there yet, and we say so on every page. The pictures you see today are concept renders and the prices are illustrative. When something becomes real, it gets its name here first.</p><a class="text-link" href="#ledger">What’s real right now <Icon/></a></div>
+   <div class="craft-rule-photo"><Print tilt={-2} tape="top" caption="Real photograph, coming with the first batch."><Placeholder name="workshop-hands"/></Print><span class="craft-stamp craft-stamp--coral" aria-hidden="true"><Flower/><span>Not yet.<br/>Soon.</span></span></div>
+  </div>
+ </article>
+</section>
+
+<section class="craft-ledger" id="ledger" aria-labelledby="ledger-title">
+ <div class="wrap">
+  <h2 id="ledger-title">What’s real. <em>What’s not yet.</em></h2>
+  <div class="craft-ledger-grid">
+   <div><h3>Already true</h3><ul>{real.map(item=><li>{item}</li>)}</ul></div>
+   <div><h3>Not yet. We’ll say when.</h3><ul>{notYet.map(item=><li>{item}</li>)}</ul></div>
+  </div>
+  <p class="craft-ledger-note">This ledger moves in one direction only. Things cross over when they are real, never before.</p>
+ </div>
+</section>
+
+<section class="craft-nest wrap" id="nest" aria-labelledby="nest-title">
+ <div class="craft-nest-panel">
+  <Flower/>
+  <div>
+   <h2 id="nest-title">A little room for <em>the sparrow.</em></h2>
+   <p>The plan: every object sold helps put up a sparrow nest box somewhere in Bengaluru. We will publish the partner, the process and the evidence before that promise becomes part of a purchase. No counter until there is something real to count.</p>
+   <a class="text-link" href="/story#sparrow">Why the sparrow, anyway <Icon/></a>
+  </div>
+ </div>
+</section>
+
+<section class="craft-cta wrap">
+ <h2>Okay boss.<br/><em>Meet the gang.</em></h2>
+ <p>Six personalities, one deeply relatable city. Have a look, build a bag, poke at the preview checkout. Nothing is charged.</p>
+ <a class="button" href="/shop">Shop <Icon/></a>
+</section>
 </Layout>
+
+<script>
+// The lacquer disc turns with scroll, like a lathe. Native scroll-driven
+// animation where supported; a light rAF fallback elsewhere. Reduced motion
+// leaves it still.
+const face = document.querySelector<HTMLElement>('.craft-disc-ring');
+if (face && !matchMedia('(prefers-reduced-motion:reduce)').matches && !CSS.supports('animation-timeline:scroll()')) {
+  let raf = 0;
+  const turn = () => { face.style.rotate = `${scrollY * .18}deg`; raf = 0; };
+  addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(turn); }, { passive: true });
+  turn();
+}
+</script>

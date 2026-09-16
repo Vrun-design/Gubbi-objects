@@ -14,15 +14,12 @@ try {
  await page.screenshot({ path: out + 'desktop.png', fullPage: true });
  await page.screenshot({ path: out + 'desktop-hero.png' });
  assert.equal(await page.locator('img[src*="sparrow"], img[src*="wordmark"], [lang="kn"]').count(), 0);
- await page.getByRole('button', { name: 'One more reel. Just one.', exact: true }).click();
- await page.getByRole('button', { name: 'Silk Board is a state of mind.', exact: true }).click();
- await page.getByRole('button', { name: 'The group chat.', exact: true }).click();
- assert.equal(await page.locator('[data-quiz-name]').textContent(), 'Doomscroll Buddy');
- assert.equal(await page.locator('[data-quiz-add]').getAttribute('data-add'), 'doomscroll-buddy');
- await page.screenshot({ path: out + 'quiz-result.png' });
- await page.getByRole('button', { name: 'Wrong. Ask me again.', exact: true }).click();
- assert.equal(await page.locator('[data-quiz-result]').isVisible(), false);
- assert.equal(await page.locator('[data-quiz-step]').textContent(), '1');
+ await page.locator('[data-vote-pick="doomscroll-buddy"]').click();
+ assert.equal(await page.locator('[data-vote-pick="doomscroll-buddy"]').getAttribute('aria-pressed'), 'true');
+ assert.match(await page.locator('[data-vote-note]').textContent(), /Doomscroll Buddy gets your vote/);
+ await page.screenshot({ path: out + 'vote.png' });
+ await page.reload();
+ assert.equal(await page.locator('[data-vote-pick="doomscroll-buddy"]').getAttribute('aria-pressed'), 'true');
  assert.equal(await page.locator('body').innerText().then(text => /\bobjects\b/i.test(text)), false);
  await page.goto(base + '/shop');
  await page.getByRole('button', { name: 'Tech worker', exact: true }).click();
@@ -64,7 +61,7 @@ try {
  await page.evaluate(() => localStorage.setItem('the-gubbi-bag-v1', 'broken JSON'));
  await page.reload();
  assert.equal(await page.locator('#checkout-empty').isVisible(), true);
- const routes = ['/', '/shop', '/gang/traffic-kumar', '/gang/doomscroll-buddy', '/gang/silk-board-forever-loop', '/gang/workflow-spinner-2am', '/gang/copilot-confusion', '/gang/namma-metro-sprint', '/story', '/philosophy', '/faq', '/checkout'];
+ const routes = ['/', '/shop', '/gang/traffic-kumar', '/gang/doomscroll-buddy', '/gang/silk-board-forever-loop', '/gang/workflow-spinner-2am', '/gang/copilot-confusion', '/gang/namma-metro-sprint', '/story', '/philosophy', '/checkout'];
  for (const width of [1440, 768, 390, 360]) {
   await page.setViewportSize({ width, height: 900 });
   for (const route of routes) {
@@ -89,5 +86,5 @@ try {
  await page.locator('[data-remove]').click();
  assert.equal(await page.locator('#bag-empty').isVisible(), true);
  assert.deepEqual(errors, []);
- console.log('PASS: all routes at 1440/768/390/360px; branding, the which-one-are-you flow, search, filters, sorting, gallery, bag, quantities, persistence, corrupt storage, checkout, and mobile navigation.');
+ console.log('PASS: all routes at 1440/768/390/360px; branding, the first-batch vote, search, filters, sorting, gallery, bag, quantities, persistence, corrupt storage, checkout, and mobile navigation.');
 } finally { await browser.close(); }

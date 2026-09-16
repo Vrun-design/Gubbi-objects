@@ -1,0 +1,121 @@
+/* /philosophy — The craft. Inherits the Art Club world from art-club.css.
+   Wood tones are local to this page: they come from the lathe, not the palette. */
+.craft-hero{--wood:#a8602f;--wood-deep:#5e3316;--wood-light:#d9a978;padding:56px 0 100px;overflow:hidden}
+.craft-hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+.craft-hero h1{font-size:clamp(50px,6.4vw,92px);line-height:.98;letter-spacing:-.04em;margin:0 0 28px}
+.craft-hero h1 em,.craft-how h2 em,.craft-rule h2 em,.craft-ledger h2 em,.craft-nest h2 em,.craft-cta h2 em{font-family:var(--font-serif);font-weight:400;font-style:italic;letter-spacing:-.03em;color:var(--blue)}
+.craft-hero-lede{font-size:17px;line-height:1.7;color:var(--ink-soft);max-width:460px;margin:0 0 34px}
+
+/* The lacquer disc: a lathe-turned wheel in the palette, turning with scroll */
+.craft-disc{position:relative;display:grid;justify-items:center;gap:26px;justify-self:center}
+.craft-disc-ring{position:relative;width:min(440px,78vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 38% 32%,var(--wood-light),var(--wood) 55%,var(--wood-deep));box-shadow:var(--shadow-lg),inset 0 -10px 22px rgb(0 0 0/.25),inset 0 8px 14px rgb(255 255 255/.18);display:grid;place-items:center;will-change:transform}
+@supports(animation-timeline:scroll()){
+ .craft-disc-ring{animation:craft-turn linear both;animation-timeline:scroll();animation-range:0 180vh}
+ @keyframes craft-turn{to{rotate:340deg}}
+}
+.craft-disc-face{width:82%;aspect-ratio:1;border-radius:50%;background:conic-gradient(from -30deg,var(--w1) 0 60deg,var(--w2) 60deg 120deg,var(--w3) 120deg 180deg,var(--w4) 180deg 240deg,var(--w5) 240deg 300deg,var(--w6) 300deg 360deg);box-shadow:inset 0 0 0 6px var(--wood-deep),inset 0 0 40px rgb(0 0 0/.12);position:relative;animation:craft-spin 48s linear infinite}
+@keyframes craft-spin{to{rotate:360deg}}
+.craft-disc-face::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 34% 28%,rgb(255 255 255/.45),transparent 42%)}
+.craft-disc-hub{position:absolute;width:24%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 40% 35%,var(--wood-light),var(--wood-deep));display:grid;place-items:center;box-shadow:0 4px 10px rgb(0 0 0/.3)}
+.craft-disc-hub svg{width:56%;height:56%;color:var(--paper)}
+.craft-disc-hub svg circle{fill:var(--wood-deep)}
+.craft-disc-note{font:italic 14px/1.4 var(--font-serif);color:var(--ink-muted);text-align:center}
+
+/* How a gombe is born — five steps */
+.craft-how{background:var(--green);padding:100px 0 110px;overflow:hidden}
+.craft-how-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:64px}
+.craft-how h2{font-size:var(--text-display-lg);margin:0}
+.craft-how-head p{font-size:15px;line-height:1.7;color:var(--ink-soft);margin:0;max-width:48ch}
+.craft-steps{list-style:none;margin:0 auto;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:34px 28px;align-items:start}
+.craft-steps li:nth-child(even){margin-top:56px}
+.craft-steps .print{padding:9px 9px 11px}
+.craft-step-copy{margin-top:26px;position:relative;padding-left:44px}
+.craft-step-n{position:absolute;left:0;top:-2px;width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font:700 13px/1 var(--font-display)}
+.craft-steps h3{font-size:22px;letter-spacing:-.03em;margin:0 0 8px}
+.craft-steps p{font-size:13.5px;line-height:1.6;color:var(--ink-soft);margin:0}
+
+/* The four rules — alternating big-type bands */
+.craft-rule{padding:100px 0;overflow:hidden}
+.craft-rule--green{background:var(--green)}
+.craft-rule--deep{background:var(--paper-deep)}
+.craft-rule--paper+.craft-rule--paper{padding-top:0}
+.craft-rule-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.craft-rule-inner--flip .craft-rule-copy{order:2}
+.craft-rule h2{font-size:clamp(40px,5.2vw,74px);margin:0 0 26px}
+.craft-rule p{font-size:16px;line-height:1.75;color:var(--ink-soft);margin:0;max-width:50ch}
+.craft-rule .text-link{margin-top:26px}
+.craft-rule-photo{position:relative;width:100%;max-width:520px;justify-self:center}
+.craft-rule-photo--portrait{max-width:400px}
+.craft-rule-inner--flip .craft-rule-photo{justify-self:center}
+.craft-stamp{position:absolute;right:-30px;bottom:-34px;width:126px;height:126px;display:grid;place-items:center;rotate:10deg;pointer-events:none}
+.craft-stamp>svg{position:absolute;inset:0;width:100%;height:100%;color:var(--yellow)}
+.craft-stamp>svg circle{fill:var(--yellow)}
+.craft-stamp>span{position:relative;text-align:center;font:italic 19px/1.05 var(--font-serif);color:var(--ink)}
+.craft-stamp--coral>svg,.craft-stamp--coral>svg circle{color:var(--orange);fill:var(--orange)}
+.craft-stamp--coral>span{color:var(--paper)}
+
+/* The ledger — cobalt */
+.craft-ledger{background:var(--blue);color:var(--paper);padding:100px 0}
+.craft-ledger h2{font-size:var(--text-display-lg);margin:0 0 54px}
+.craft-ledger h2 em{color:var(--yellow)}
+.craft-ledger-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px}
+.craft-ledger h3{font-size:14px;font-weight:600;letter-spacing:.02em;margin:0 0 6px;padding-bottom:14px;border-bottom:1px solid var(--line-on-dark)}
+.craft-ledger-grid div:last-child h3{color:var(--yellow)}
+.craft-ledger ul{list-style:none;margin:0;padding:0}
+.craft-ledger li{font-size:17px;line-height:1.5;padding:16px 0;border-bottom:1px solid var(--line-on-dark-soft);display:flex;gap:18px;align-items:baseline}
+.craft-ledger li::before{content:"";flex:none;width:10px;height:10px;border-radius:50%;background:var(--paper);translate:0 -1px}
+.craft-ledger-grid div:last-child li{color:var(--blue-pale)}
+.craft-ledger-grid div:last-child li::before{background:none;border:2px solid var(--yellow);box-sizing:border-box}
+.craft-ledger-note{font:italic 15px/1.6 var(--font-serif);color:var(--blue-pale);margin:40px 0 0;max-width:none}
+
+/* Nest box — yellow panel */
+.craft-nest{padding:100px 0 0}
+.craft-nest-panel{display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center;background:var(--yellow);border:1px solid var(--yellow-line);border-radius:var(--radius-lg);padding:56px 64px;rotate:-.6deg;transition:rotate .35s var(--ease-out-expo)}
+.craft-nest-panel:hover{rotate:0deg}
+.craft-nest-panel>svg{width:140px;height:140px;color:var(--orange)}
+.craft-nest-panel>svg circle{fill:var(--yellow)}
+.craft-nest h2{font-size:var(--text-display-md);margin:0 0 18px}
+.craft-nest h2 em{color:var(--ink)}
+.craft-nest p{font-size:15px;line-height:1.75;color:var(--yellow-ink);margin:0 0 22px;max-width:60ch}
+.craft-nest .text-link{color:var(--ink)}
+
+/* Closing call */
+.craft-cta{padding:120px 0 110px;text-align:center;display:grid;justify-items:center}
+.craft-cta h2{font-size:clamp(44px,6vw,86px);line-height:.98;margin:0 0 22px}
+.craft-cta p{font-size:16px;color:var(--ink-muted);margin:0 0 34px;max-width:46ch}
+
+@media(max-width:1000px){
+ .craft-hero-inner,.craft-rule-inner{gap:40px}
+ .craft-steps{grid-template-columns:repeat(3,1fr);gap:44px 24px}
+ .craft-steps li:nth-child(even){margin-top:0}
+ .craft-ledger-grid{gap:36px}
+}
+@media(max-width:760px){
+ .craft-hero{padding:34px 0 70px}
+ .craft-hero-inner{grid-template-columns:1fr;gap:48px}
+ .craft-hero h1{font-size:clamp(44px,12vw,56px)}
+ .craft-how{padding:64px 0 70px}
+ .craft-how-head{grid-template-columns:1fr;gap:16px;margin-bottom:40px}
+ .craft-steps{grid-template-columns:1fr 1fr;gap:40px 20px}
+ .craft-steps li:nth-child(even){margin-top:40px}
+ .craft-steps li:last-child{grid-column:1/-1;max-width:320px;margin-top:0}
+ .craft-steps h3{font-size:19px}
+ .craft-rule{padding:64px 0}
+ .craft-rule-inner{grid-template-columns:1fr;gap:44px}
+ .craft-rule-inner--flip .craft-rule-copy{order:0}
+ .craft-rule-photo{max-width:none;justify-self:stretch;margin-inline:6px}
+ .craft-stamp{right:-6px;bottom:-48px;width:100px;height:100px}
+ .craft-stamp>span{font-size:15px}
+ .craft-ledger{padding:64px 0}
+ .craft-ledger h2{margin-bottom:34px}
+ .craft-ledger-grid{grid-template-columns:1fr;gap:34px}
+ .craft-ledger li{font-size:15px;padding:13px 0}
+ .craft-nest{padding-top:64px}
+ .craft-nest-panel{grid-template-columns:1fr;gap:20px;padding:34px 26px;rotate:0deg}
+ .craft-nest-panel>svg{width:80px;height:80px}
+ .craft-cta{padding:80px 0 70px}
+}
+@media(prefers-reduced-motion:reduce){
+ .craft-disc-ring,.craft-disc-face{animation:none}
+ .craft-nest-panel{transition:none}
+}

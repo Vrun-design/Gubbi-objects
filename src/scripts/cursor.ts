@@ -13,7 +13,6 @@ if (matchMedia('(pointer:fine) and (prefers-reduced-motion:no-preference)').matc
     ['.quick-add', 'Bag'],
     ['.club-gift', 'Gift'],
     ['.club-invitation', 'Visit'],
-    ['.club-quiz-options button', 'Pick'],
     ['.gallery-tab', 'Look'],
   ];
   let tx = 0, ty = 0, x = 0, y = 0, vx = 0, vy = 0, raf = 0;

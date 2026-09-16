@@ -1,0 +1,10 @@
+---
+// A taped paper print, the Art Club photo motif. Wrap a ProductCrop or a
+// Placeholder. `tilt` in degrees; `tape` picks where the strip sits.
+interface Props { caption?: string; tilt?: number; tape?: 'top' | 'left' | 'right' | 'none'; class?: string; }
+const { caption, tilt = 0, tape = 'top', class: className } = Astro.props;
+---
+<figure class:list={['print', `print--tape-${tape}`, className]} style={`--tilt:${tilt}deg`}>
+ <slot/>
+ {caption && <figcaption>{caption}</figcaption>}
+</figure>

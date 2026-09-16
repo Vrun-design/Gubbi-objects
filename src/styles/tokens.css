@@ -161,7 +161,7 @@
 ::selection{background:var(--yellow);color:var(--ink)}
 :focus-visible{outline:3px solid var(--orange);outline-offset:5px}
 input,textarea{caret-color:var(--blue)}
-::-webkit-scrollbar{width:13px;height:13px}
+::-webkit-scrollbar{width:11px;height:11px}
 ::-webkit-scrollbar-track{background:var(--paper)}
-::-webkit-scrollbar-thumb{background:var(--blue);border:3px solid var(--paper);border-radius:var(--radius-pill)}
-::-webkit-scrollbar-thumb:hover{background:var(--blue-deep)}
+::-webkit-scrollbar-thumb{background:var(--line-strong);border:3px solid var(--paper);border-radius:var(--radius-pill)}
+::-webkit-scrollbar-thumb:hover{background:var(--ink-faint)}

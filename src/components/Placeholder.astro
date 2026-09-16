@@ -1,0 +1,7 @@
+---
+// A labelled photo slot. Replace public/placeholders/<name>.svg with the real
+// photograph (keep the file name) and nothing else needs to change.
+interface Props { name: string; alt?: string; portrait?: boolean; }
+const { name, alt = '', portrait = false } = Astro.props;
+---
+<img class="placeholder" src={`/placeholders/${name}.svg`} alt={alt} width={portrait ? 900 : 1200} height={portrait ? 1200 : 900} loading="lazy" decoding="async"/>

@@ -5,42 +5,30 @@ import ProductCrop from '../components/ProductCrop.astro';
 import Flower from '../components/Flower.astro';
 import Icon from '../components/Icon.astro';
 import { products } from '../data/products';
-import { questions } from '../data/quiz';
 import fs from 'node:fs';
 
 const phrases = ['SWALPA ADJUST MAADI', 'ONE TEA BEKU', 'SILK BOARD IS A STATE OF MIND', 'METER HAAKI BOSS', 'OLD CRAFT. NEW MISCHIEF.', 'SIKKAPATTE CHENNAGIDE'];
 
-const craftSteps = [
-  { n: '01', name: 'Turn', line: 'Wood on a lathe. Shaped by hand, judged by eye.' },
-  { n: '02', name: 'Lac', line: 'Colour pressed on while it is still spinning. No paint, no brush.' },
-  { n: '03', name: 'Polish', line: 'The shine comes from friction and a screwpine leaf. Not from a spray can.' },
-  { n: '04', name: 'Guy', line: 'He gets a name, a job, and one specific problem he is not solving.' },
+const facts = [
+  { title: 'Lathe-turned, lac-coloured.', line: 'The Channapatna way: colour pressed on while the wood is still spinning. No paint, no brush, no spray can.' },
+  { title: 'Palm-size.', line: 'Smaller than your water bottle. Sits on a monitor stand without fighting the second screen.' },
+  { title: 'One guy, one problem.', line: 'Each object is a person with a name, a job and a situation he is not getting out of. Very good company while you don’t either.' },
 ];
 
-const why = [
-  { n: '01', title: 'Made the old way.', line: 'Turned on a lathe and coloured with lac, the way gombe have been made in Channapatna for two hundred years. The method is not a gimmick. It is the whole point.' },
-  { n: '02', title: 'About the city you actually live in.', line: 'Not “World’s Best Dad.” Not a Paris skyline. The flyover, the roundabout, the 2am deploy, the doors closing on your bag.' },
-  { n: '03', title: 'One guy, one problem.', line: 'Each object is a person with a name, a job and a situation. He is not getting out of it. He is very good company while you don’t either.' },
+const doubts = [
+  ['Boss, can I actually buy these?', 'Not yet. This is a collection preview. Look around, build a bag, poke at checkout — but no order is placed and no payment is taken.'],
+  ['Are the prices final?', 'No. Every price here is illustrative, so you can try the shopping flow. Approved prices and any charges get published before orders open.'],
+  ['Will he look exactly like the picture?', 'The pictures are the concept sheet. Prototypes and production will shape the final form, materials and finish. Real photography and specs come before launch.'],
+  ['Toys, or grown-up things?', 'Grown-up things. Collectible objects for adult desks and shelves, in the spirit of Channapatna gombe. Not offered as children’s toys.'],
+  ['Who is making them?', 'Our intended starting point is Channapatna’s craft community. Production partners, maker names and materials are not confirmed yet — they get named when the first batch is approved, not before.'],
+  ['Shipping? Returns? Delivery eshtu days?', 'Regions, timelines, costs and return terms get confirmed before the first collection goes on sale. No shipping promise applies to this preview.'],
+  ['Can I gift one?', 'That is very much the idea. For now you can add a gift note at preview checkout and see how it feels. Nothing is sent.'],
+  ['Does the site save my information?', 'Only your preview bag, and only in this browser. Checkout details and gift notes are not submitted or stored. No account, no mailing list.'],
+  ['Innu jaasti bartha? More coming?', 'That’s the plan. These six are the starting concepts. More local stories and uncomfortably familiar personalities follow as we work through prototypes.'],
 ];
 
 const spotlight = products.find(product => product.slug === 'silk-board-forever-loop')!;
 
-const places = [
-  { title: 'On the monitor stand.', line: 'Eye level with your standup. Nods at nothing. Palm-size, so he does not fight the second screen.', position: 'p-4', slug: 'workflow-spinner-2am' },
-  { title: 'On the shelf, next to the plant.', line: 'The plant is dying. He is not. Between the books you bought and the books you read.', position: 'p-2', slug: 'doomscroll-buddy' },
-  { title: 'In a gift bag, obviously.', line: 'Small enough to hand over at a café. Specific enough that they know you actually know them.', position: 'p-6', slug: 'namma-metro-sprint' },
-];
-
-const gifting = [
-  { who: 'The work bestie with 47 tabs open.', verdict: 'Needs a pair programmer who cannot break prod.', slug: 'copilot-confusion' },
-  { who: 'The one who says “reaching in 10”.', verdict: 'Has never once reached in 10.', slug: 'traffic-kumar' },
-  { who: 'The one who is chronically online.', verdict: 'Will see this reel before they see the gift.', slug: 'doomscroll-buddy' },
-  { who: 'The one who is very, very Bengaluru.', verdict: 'Complains about the city like it is a love language.', slug: 'silk-board-forever-loop' },
-  { who: 'The one on call this weekend.', verdict: 'Deploys on Friday. Repents on Saturday.', slug: 'workflow-spinner-2am' },
-  { who: 'The almost-on-time friend.', verdict: 'Made the train. Left the dignity on the platform.', slug: 'namma-metro-sprint' },
-].map(row => ({ ...row, product: products.find(product => product.slug === row.slug)! }));
-
-const firstQuestion = questions[0];
 // Words that complete “make room for the ___”. The first one is the name.
 const rotating = ['gang.', 'desk.', 'bestie.', 'chaos.', 'drama.', 'city.'];
 // Drop a hero image at public/hero-bg.jpg and it is picked up at build time.
@@ -65,22 +53,12 @@ const heroImage = ['hero-bg.jpg', 'hero-bg.png', 'hero-bg.webp'].map(name => `/$
  <div class="product-grid">{products.map(product=><ProductCard product={product}/>)}</div>
 </section>
 
-<section class="club-section wrap club-why">
- <header class="club-why-head">
-  <p class="club-why-kicker">What is this, exactly?</p>
-  <h2>Not a toy. Not a mug.<br/><em>A little guy.</em></h2>
- </header>
- <ol class="club-why-grid">
-  {why.map(item=><li><span class="club-why-n">{item.n}</span><h3>{item.title}</h3><p>{item.line}</p></li>)}
- </ol>
-</section>
-
 <section class="club-spotlight" aria-labelledby="spotlight-title">
  <div class="wrap club-spotlight-inner">
   <div class="club-spotlight-photo"><ProductCrop position={spotlight.position} alt={`${spotlight.name} object concept`}/><span class="club-spotlight-stamp"><Flower/><span>Turn<br/>me</span></span></div>
   <div class="club-spotlight-copy">
-   <p class="club-spotlight-meta">Object {spotlight.number} · {spotlight.tags.join(' · ')} · {spotlight.colour}</p>
    <h2 id="spotlight-title">{spotlight.name}</h2>
+   <p class="club-spotlight-meta">Object {spotlight.number} · {spotlight.tags.join(' · ')} · {spotlight.colour}</p>
    <p class="club-spotlight-short">{spotlight.short}</p>
    <p class="club-spotlight-story">{spotlight.story}</p>
    <p class="club-spotlight-price"><strong>₹{spotlight.price.toLocaleString('en-IN')}</strong><span>illustrative price</span></p>
@@ -89,73 +67,25 @@ const heroImage = ['hero-bg.jpg', 'hero-bg.png', 'hero-bg.webp'].map(name => `/$
  </div>
 </section>
 
-<section class="club-craft">
- <div class="wrap club-craft-inner">
-  <div class="club-craft-copy">
-   <p class="club-craft-kicker">Gombegala Ooru · the town of dolls</p>
-   <h2>Old craft.<br/><em>New mischief.</em></h2>
-   <p>Channapatna is two hours down the road. Wooden gombe have been turned on a lathe and coloured with lacquer there for generations, and the town is literally named after them.</p>
-   <p>We’re making little guys in that spirit, about the city we actually live in. The craft is old. The problems are extremely 2026.</p>
+<section class="club-deal" aria-labelledby="deal-title">
+ <div class="wrap club-deal-inner">
+  <div class="club-deal-copy">
+   <h2 id="deal-title">Gombe alla, boss.<br/><em>Idu gang.</em></h2>
+   <p class="club-deal-lede">Not toys. Wooden collectibles, turned and lacquered the Channapatna way, about the Bengaluru you actually live in.</p>
    <a class="text-link" href="/philosophy">The whole craft story <Icon/></a>
   </div>
-  <ol class="club-craft-steps">
-   {craftSteps.map(step=><li><span class="club-craft-n">{step.n}</span><div><h3>{step.name}</h3><p>{step.line}</p></div></li>)}
-  </ol>
- </div>
- <p class="wrap club-craft-note">We’re still in prototypes. Makers, materials and final specifications get named when the first batch is approved — not before.</p>
-</section>
-
-<section class="club-quiz" id="which">
- <div class="wrap club-quiz-inner">
-  <div class="club-quiz-copy">
-   <h2>Which one<br/>are <em>you?</em></h2>
-   <p>Three questions. One guy. It will be accurate and you will not enjoy that.</p>
-   <p class="club-quiz-escape"><a class="text-link" href="/shop">Skip the therapy, show me all six <Icon/></a></p>
+  <div>
+   <ul class="club-deal-facts">{facts.map(fact=><li><h3>{fact.title}</h3><p>{fact.line}</p></li>)}</ul>
+   <p class="club-deal-note">Still in prototypes. Makers, materials and final specifications get named with the first approved batch — not before.</p>
   </div>
-  <div class="club-quiz-card">
-   <div class="club-quiz-ask" data-quiz-ask>
-    <p class="club-quiz-step"><span data-quiz-step>1</span> / {questions.length}</p>
-    <p class="club-quiz-prompt" data-quiz-prompt>{firstQuestion.prompt}</p>
-    <div class="club-quiz-options" data-quiz-options>{firstQuestion.answers.map((answer, index)=><button type="button" data-quiz-pick={index}>{answer.label}</button>)}</div>
-   </div>
-   <div class="club-quiz-result" data-quiz-result hidden aria-live="polite">
-    <div class="club-quiz-photo"><ProductCrop position="p-1" alt=""/></div>
-    <div class="club-quiz-verdict">
-     <h3 data-quiz-name>Traffic Kumar</h3>
-     <p class="club-quiz-line" data-quiz-verdict></p>
-     <p class="club-quiz-aside">yeah. it’s you.</p>
-     <p class="club-quiz-price"><strong data-quiz-price></strong> <span>illustrative price</span></p>
-     <div class="club-quiz-actions"><button class="button" type="button" data-quiz-add>Add to bag <Icon name="bag"/></button><a class="text-link" data-quiz-link href="/gang/traffic-kumar">Read his whole deal <Icon/></a></div>
-     <button class="text-button" type="button" data-quiz-reset>Wrong. Ask me again.</button>
-    </div>
-   </div>
-  </div>
- </div>
-</section>
-
-<section class="club-section wrap club-places">
- <header class="section-head"><div><h2>Where he <em>lives.</em></h2><p>Palm-size. Smaller than your water bottle, bigger than your attention span.</p></div><a class="text-link" href="/shop">Pick a guy for the spot <Icon/></a></header>
- <div class="club-places-grid">
-  {places.map((place, index)=><a class="club-place" href={`/gang/${place.slug}`}><div class="club-place-photo" style={`--tilt:${[-2,1.5,-1][index]}deg`}><ProductCrop position={place.position} alt=""/></div><h3>{place.title}</h3><p>{place.line}</p></a>)}
- </div>
- <p class="preview-note">Target scale only. Exact dimensions are confirmed with the first approved batch.</p>
-</section>
-
-<section class="club-gifting">
- <div class="wrap">
-  <header class="section-head"><div><h2>Gifting? <em>Say less.</em></h2><p>Good gifts say “I know you.” Great gifts say “this is literally you,” and it is a little rude.</p></div></header>
-  <ul class="club-gift-list">
-   {gifting.map(row=><li><a href={`/gang/${row.slug}`}><span class="club-gift-who">{row.who}</span><span class="club-gift-verdict">{row.verdict}</span><span class="club-gift-pick"><span class="club-gift-thumb"><ProductCrop position={row.product.position} alt=""/></span><span>{row.product.name}</span><Icon/></span></a></li>)}
-  </ul>
  </div>
 </section>
 
 <section class="club-vote">
  <div class="wrap club-vote-inner">
   <div class="club-vote-copy">
-   <p class="club-vote-kicker">First batch. First dibs.</p>
    <h2>Who should we<br/>make <em>first?</em></h2>
-   <p>Six concepts. One first batch. Pick your guy. Loudly, if you like.</p>
+   <p>First batch, first dibs. Six concepts, one run. Pick your guy — loudly, if you like.</p>
    <p class="club-vote-note" data-vote-note>Counted on this device for now. Real voting comes with the real batch.</p>
   </div>
   <div class="club-vote-grid" data-vote>
@@ -169,83 +99,14 @@ const heroImage = ['hero-bg.jpg', 'hero-bg.png', 'hero-bg.webp'].map(name => `/$
  <a href="https://gubbiartclub.com" class="club-invitation"><Flower/><h3>Less screen.<br/>More mess.</h3><span>Find your workshop <Icon/></span></a>
 </section>
 
-<section class="club-section wrap club-faq">
- <h2>A few <em>doubts.</em></h2>
- <div>
-  <details><summary>Boss, can I actually buy these?<Icon name="plus"/></summary><p>Not yet. This is a collection preview. Look around, build a bag, poke at checkout — but no order is placed and no payment is taken. The prices are illustrative.</p></details>
-  <details><summary>Toys, or grown-up things?<Icon name="plus"/></summary><p>Grown-up things. These are collectible objects for adult desks and shelves, in the spirit of Channapatna gombe. Final specifications get shared with the first approved batch.</p></details>
-  <details><summary>Innu jaasti bartha? More coming?<Icon name="plus"/></summary><p>That’s the plan. These six are the starting concepts. More local stories and uncomfortably familiar personalities follow as we work through prototypes.</p></details>
-  <a class="text-link" href="/faq">A few more answers <Icon/></a>
- </div>
+<section class="club-section wrap club-faq" id="doubts" aria-labelledby="doubts-title">
+ <div class="club-faq-head"><h2 id="doubts-title">A few <em>doubts.</em></h2><p>No small-print energy. Here is where things stand.</p></div>
+ <div class="club-faq-list">{doubts.map(([question, answer])=><details><summary>{question}<Icon name="plus"/></summary><p>{answer}</p></details>)}</div>
 </section>
 </Layout>
 
 <script>
-import { products, money } from '../data/products';
-import { questions, verdicts } from '../data/quiz';
-
-const ask = document.querySelector<HTMLElement>('[data-quiz-ask]');
-const result = document.querySelector<HTMLElement>('[data-quiz-result]');
-
-if (ask && result) {
-  const stepLabel = ask.querySelector<HTMLElement>('[data-quiz-step]')!;
-  const prompt = ask.querySelector<HTMLElement>('[data-quiz-prompt]')!;
-  const options = ask.querySelector<HTMLElement>('[data-quiz-options]')!;
-  const crop = result.querySelector<HTMLElement>('.product-crop')!;
-  const image = crop.querySelector('img')!;
-  const addButton = result.querySelector<HTMLButtonElement>('[data-quiz-add]')!;
-
-  let step = 0;
-  let picks: string[] = [];
-
-  const render = () => {
-    const question = questions[step];
-    stepLabel.textContent = String(step + 1);
-    prompt.textContent = question.prompt;
-    options.innerHTML = question.answers
-      .map((answer, index) => `<button type="button" data-quiz-pick="${index}">${answer.label}</button>`)
-      .join('');
-  };
-
-  const winner = () => {
-    const tally = new Map<string, number>();
-    picks.forEach(slug => tally.set(slug, (tally.get(slug) ?? 0) + 1));
-    // Ties break toward the earliest pick, so iterate the picks, not the map.
-    return picks.reduce((best, slug) => (tally.get(slug)! > tally.get(best)! ? slug : best), picks[0]);
-  };
-
-  const reveal = () => {
-    const product = products.find(item => item.slug === winner())!;
-    crop.className = `product-crop ${product.position}`;
-    image.alt = `${product.name} object concept`;
-    result.querySelector('[data-quiz-name]')!.textContent = product.name;
-    result.querySelector('[data-quiz-verdict]')!.textContent = verdicts[product.slug];
-    result.querySelector('[data-quiz-price]')!.textContent = money(product.price);
-    result.querySelector('[data-quiz-link]')!.setAttribute('href', `/gang/${product.slug}`);
-    addButton.dataset.add = product.slug;
-    ask.hidden = true;
-    result.hidden = false;
-  };
-
-  options.addEventListener('click', event => {
-    const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-quiz-pick]');
-    if (!button) return;
-    picks.push(questions[step].answers[Number(button.dataset.quizPick)].slug);
-    step += 1;
-    if (step < questions.length) render();
-    else reveal();
-  });
-
-  result.querySelector('[data-quiz-reset]')!.addEventListener('click', () => {
-    step = 0;
-    picks = [];
-    render();
-    result.hidden = true;
-    ask.hidden = false;
-    options.querySelector('button')?.focus();
-  });
-}
-
+import { products } from '../data/products';
 const vote = document.querySelector<HTMLElement>('[data-vote]');
 if (vote) {
   const note = document.querySelector<HTMLElement>('[data-vote-note]')!;
